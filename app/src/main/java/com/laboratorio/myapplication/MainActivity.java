@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ProgressDialog nDialog;
 
-    private Map<Long, Integer> cartProducts = new HashMap<>();
+    private Map<Long, Product> cartProducts = new HashMap<>();
     private Long partialPrice = 0L;
 
     @Override
@@ -144,10 +146,10 @@ public class MainActivity extends AppCompatActivity {
                         products.add(product);
                     }
                 }
-                for (Map.Entry<Long,Integer> entry : cartProducts.entrySet()){
+                for (Map.Entry<Long,Product> entry : cartProducts.entrySet()){
                     Optional<Product> currentProd = products.stream().filter(p -> p.getId().equals(entry.getKey())).findAny();
                     if (currentProd.isPresent()){
-                        currentProd.get().setCount(entry.getValue());
+                        currentProd.get().setCount(entry.getValue().getCount());
                     }
                 }
 
@@ -166,13 +168,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void addToProduct(Long id) {
-        cartProducts.put(id, cartProducts.get(id) == null? 1 : cartProducts.get(id) + 1);
+    public void modifyTotal(Product product){
+        cartProducts.put(product.getId(), product);
+        updateTotal();
+    }
+    private void updateTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (Product p: cartProducts.values()){
+            total = total.add(new BigDecimal(p.getCount()).multiply(p.getPrice()));
+        }
+
+        TextView totalText = (TextView) findViewById(R.id.valuePrice);
+        totalText.setText(total.toString());
     }
 
-    public void substractToProduct(Long id) {
-        if ((cartProducts.get(id) != null) && ((cartProducts.get(id) - 1) >= 0)){
-            cartProducts.put(id, cartProducts.get(id) == null ? 1 : cartProducts.get(id) - 1);
-        }
-    }
+
 }

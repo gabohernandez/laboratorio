@@ -49,6 +49,7 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
         holder.mItem = mValues.get(position);
         holder.title.setText(mValues.get(position).getTitle());
         holder.description.setText(mValues.get(position).getDescription());
+        holder.price.setText(String.valueOf("$" + mValues.get(position).getPrice()));
         String s = "data:image/jpeg;base64,";
         byte[] decodedString = Base64.decode(mValues.get(position).getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
@@ -58,8 +59,9 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
         holder.buttonPlus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 holder.count.setText(String.valueOf(Integer.valueOf(holder.count.getText().toString()) + 1));
+                mValues.get(position).setCount(Integer.valueOf(holder.count.getText().toString()));
                 if (context instanceof  MainActivity){
-                    ((MainActivity) context).addToProduct(mValues.get(position).getId());
+                    ((MainActivity) context).modifyTotal(mValues.get(position));
                 }
             }
         });
@@ -68,8 +70,9 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
             public void onClick(View v) {
                 int newCount = Integer.valueOf(holder.count.getText().toString()) - 1;
                 holder.count.setText(String.valueOf(newCount <= 0 ? 0: newCount ));
+                mValues.get(position).setCount(Integer.valueOf(holder.count.getText().toString()));
                 if (context instanceof  MainActivity){
-                    ((MainActivity) context).substractToProduct(mValues.get(position).getId());
+                    ((MainActivity) context).modifyTotal(mValues.get(position));
                 }
             }
         });
@@ -85,6 +88,7 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
         public final TextView title;
         public final TextView description;
         public final TextView count;
+        public final TextView price;
         public final ImageView image;
         public final Button buttonPlus;
         public final Button buttonSubstract;
@@ -96,6 +100,7 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
             title = (TextView) view.findViewById(R.id.title);
             description = (TextView) view.findViewById(R.id.description);
             count = (TextView) view.findViewById(R.id.count);
+            price = (TextView) view.findViewById(R.id.price);
             image = (ImageView) view.findViewById(R.id.image);
             buttonPlus = (Button) view.findViewById(R.id.buttonPlus);
             buttonSubstract = (Button) view.findViewById(R.id.buttonSubstract);

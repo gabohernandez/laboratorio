@@ -1,5 +1,6 @@
 package com.laboratorio.myapplication.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ public class Product {
     private String description;
     private List<Image> images;
     private List<Category> categories;
+    private BigDecimal price;
     private int count = 0;
 
     public Long getId() {
@@ -50,6 +52,14 @@ public class Product {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public int getCount() {
