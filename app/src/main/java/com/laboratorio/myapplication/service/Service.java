@@ -1,5 +1,6 @@
 package com.laboratorio.myapplication.service;
 
+import com.laboratorio.myapplication.model.Category;
 import com.laboratorio.myapplication.model.Product;
 
 import java.util.List;
@@ -11,4 +12,7 @@ public interface Service {
 
     @GET("/api/product")
     Call<List<Product>> getProducts();
+
+    @GET("/api/category")
+    Call<List<Category>> getCategories();
 }

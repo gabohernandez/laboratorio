@@ -9,6 +9,8 @@ public class Product {
     private String title;
     private String description;
     private List<Image> images;
+    private List<Category> categories;
+    private int count = 0;
 
     public Long getId() {
         return id;
@@ -40,5 +42,21 @@ public class Product {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
