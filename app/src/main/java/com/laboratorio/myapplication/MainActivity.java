@@ -10,6 +10,7 @@ import android.view.Menu;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.laboratorio.myapplication.model.Cart;
 import com.laboratorio.myapplication.model.Category;
 import com.laboratorio.myapplication.model.Product;
 import com.laboratorio.myapplication.service.Service;
@@ -23,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog nDialog;
 
     private Map<Long, Integer> cartProducts = new HashMap<>();
+    private Long partialPrice = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("La Justa");
+        toolbar.setSubtitle("Economía Social Solidaria");
 
         nDialog =  new ProgressDialog(this);
         nDialog.setMessage("Loading..");
@@ -79,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    public void changeFragmenteToCart(){
+        //TODO: No pude entender como era lo de retrofit pero ya deje armados los fragments
+    }
+
+
 
     public void changeFragmentToCategory(){
         nDialog.show();
@@ -160,5 +171,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void substractToProduct(Long id) {
+        if ((cartProducts.get(id) != null) && ((cartProducts.get(id) - 1) >= 0)){
+            cartProducts.put(id, cartProducts.get(id) == null ? 1 : cartProducts.get(id) - 1);
+        }
     }
 }

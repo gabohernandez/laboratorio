@@ -9,12 +9,13 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
+        android:name=".MyActivity"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/white"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
-    </androidx.appcompat.widget.Toolbar>
+        app:logo="@mipmap/lajustaico_foreground"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

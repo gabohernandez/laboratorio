@@ -10,7 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_activity_main2">La Justa</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -21,4 +21,10 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_main3">MainActivity</string>
     <string name="title_activity_toolbar">ToolbarActivity</string>
+
+    <string name="Perfil">Perfil</string>
+    <string name="Noticias">Noticias</string>
+    <string name="Recetas">Recetas</string>
+    <string name="PreguntasFrecuentes">PreguntasFrecuentes</string>
+    <string name="SobreNosotros">Sobre Nosotros</string>
 </resources>
