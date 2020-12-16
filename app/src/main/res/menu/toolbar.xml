@@ -21,7 +21,7 @@
         android:id="@+id/action_cart"
         style="@android:style/Widget.ActionButton"
         android:icon="@drawable/ic_action_name"
-        android:onClick="onClick"
+        android:onClick="changeFragmentToCart"
         android:orderInCategory="1000"
         android:title="CartSimbol"
         app:showAsAction="ifRoom" />

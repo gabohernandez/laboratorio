@@ -29,7 +29,7 @@ public class CartFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    public Map<Long,Integer> products;
+    public List<Product> products;
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -53,7 +53,7 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.product_item_list, container, false);
+        View view = inflater.inflate(R.layout.cart_product_item_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -69,7 +69,7 @@ public class CartFragment extends Fragment {
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), layout.getOrientation()));
             }
 
-            //recyclerView.setAdapter(new MyProductRecyclerViewAdapter(products));
+            recyclerView.setAdapter(new CartRecyclerViewAdapter(products));
         }
         return view;
     }

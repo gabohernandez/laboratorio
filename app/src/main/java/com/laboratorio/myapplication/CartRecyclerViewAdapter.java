@@ -17,6 +17,7 @@ import com.laboratorio.myapplication.dummy.DummyContent.DummyItem;
 import com.laboratorio.myapplication.model.Cart;
 import com.laboratorio.myapplication.model.Product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.product_item, parent, false);
+                .inflate(R.layout.cart_product_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -54,14 +55,19 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         byte[] decodedString = Base64.decode(mValues.get(position).getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
         holder.image.setImageBitmap(decodedByte);
+
         holder.count.setText(String.valueOf(mValues.get(position).getCount()));
+        holder.subtotal.setText(String.valueOf("$" + String.valueOf(new BigDecimal(mValues.get(position).getCount()).multiply(mValues.get(position).getPrice()))));
+
 
         holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                holder.count.setText(String.valueOf(Integer.valueOf(holder.count.getText().toString()) + 1));
-                mValues.get(position).setCount(Integer.valueOf(holder.count.getText().toString()));
+                Product p = mValues.get(position);
+                mValues.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, mValues.size());
                 if (context instanceof  MainActivity){
-                    ((MainActivity) context).modifyTotal(mValues.get(position));
+                   ((MainActivity) context).deleteProduct(p);
                 }
             }
         });
@@ -78,6 +84,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         public final TextView description;
         public final TextView count;
         public final TextView price;
+        public final TextView subtotal;
         public final ImageView image;
         public final Button buttonDelete;
         public Product mItem;
@@ -89,6 +96,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             description = (TextView) view.findViewById(R.id.description);
             count = (TextView) view.findViewById(R.id.count);
             price = (TextView) view.findViewById(R.id.price);
+            subtotal = (TextView) view.findViewById(R.id.subtotal);
             image = (ImageView) view.findViewById(R.id.image);
             buttonDelete = (Button) view.findViewById(R.id.buttonPlus);
          }

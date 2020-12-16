@@ -34,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment f = this.getFragmentManager().findFragmentById(R.id.placeholder);
-        if (f instanceof ProductFragment){
+        if (f instanceof ProductFragment || f instanceof  CartFragment){
             changeFragmentToCategory();
         }
 
@@ -127,16 +128,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void changeFragmentToCart(Map<Long, Product> cartProducts) {
-        System.out.println("LLEGUE");
-/*        FragmentManager fm = getFragmentManager();
+    public void changeFragmentToCart(MenuItem item) {
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         CartFragment cf = new CartFragment();
-        cf.products = response.body();
+        cf.products = this.cartProducts.values().stream().collect(Collectors.toList());
         ft.replace(R.id.placeholder, cf);
         // ft.add(R.id.placeholder,f);
         ft.commit();
-        nDialog.hide();*/
+        nDialog.hide();
     }
 
     public void changeFragmentToProductsWithCategory(Long categoryId){
@@ -199,4 +200,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void deleteProduct(Product product) {
+        this.cartProducts.remove(product.getId());
+        updateTotal();
+    }
 }
