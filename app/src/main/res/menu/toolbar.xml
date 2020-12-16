@@ -21,7 +21,8 @@
         android:id="@+id/action_cart"
         style="@android:style/Widget.ActionButton"
         android:icon="@mipmap/ic_launcher_foreground"
+        android:onClick="onClick"
         android:orderInCategory="1000"
-        app:showAsAction="ifRoom"
-        android:title="CartSimbol"/>
+        android:title="CartSimbol"
+        app:showAsAction="ifRoom" />
 </menu>

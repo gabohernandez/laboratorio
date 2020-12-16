@@ -42,7 +42,7 @@ public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCatego
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.name.setText(mValues.get(position).getName());
-        holder.name.setOnClickListener(new View.OnClickListener() {
+        holder.mView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (context instanceof  MainActivity){
                     ((MainActivity) context).changeFragmentToProductsWithCategory(mValues.get(position).getId());

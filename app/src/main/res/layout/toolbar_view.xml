@@ -12,10 +12,12 @@
         android:name=".MyActivity"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/verde"
         android:elevation="4dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/alegreya_sans_thin"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:logo="@mipmap/lajustaico_foreground"
+        app:logo="@mipmap/lajustaico"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@
         android:padding="2dp"
         android:text="0.00"
         android:textColor="#FFFFFF"
+        android:fontFamily="@font/alegreya_sans_thin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -29,6 +30,7 @@
         android:padding="2dp"
         android:text="Total: $ "
         android:textColor="#FFFFFF"
+        android:fontFamily="@font/alegreya_sans_thin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/valuePrice" />
 

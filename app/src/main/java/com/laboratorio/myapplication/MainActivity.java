@@ -4,9 +4,13 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Map<Long, Product> cartProducts = new HashMap<>();
     private Long partialPrice = 0L;
+
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void changeFragmenteToCart(){
-        //TODO: No pude entender como era lo de retrofit pero ya deje armados los fragments
-    }
-
-
-
     public void changeFragmentToCategory(){
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
@@ -121,6 +121,22 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(t.getMessage());
             }
         });
+    }
+
+    public boolean onClick(MenuItem item) {
+        return true;
+    }
+
+    private void changeFragmentToCart(Map<Long, Product> cartProducts) {
+        System.out.println("LLEGUE");
+/*        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        CartFragment cf = new CartFragment();
+        cf.products = response.body();
+        ft.replace(R.id.placeholder, cf);
+        // ft.add(R.id.placeholder,f);
+        ft.commit();
+        nDialog.hide();*/
     }
 
     public void changeFragmentToProductsWithCategory(Long categoryId){
