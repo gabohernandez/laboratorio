@@ -14,8 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/verde"
         android:elevation="4dp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/alegreya_sans_thin"
+        android:textColor="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:logo="@mipmap/lajustanewico"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></androidx.appcompat.widget.Toolbar>

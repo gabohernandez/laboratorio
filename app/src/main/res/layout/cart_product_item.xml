@@ -14,7 +14,7 @@
         android:adjustViewBounds="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/ic_menu_gallery" />
 
     <TextView
         android:id="@+id/title"
@@ -22,8 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text=""
+        android:width="150dp"
         android:singleLine="false"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,9 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text=""
-        android:width="100dp"
+        android:width="170dp"
         android:singleLine="true"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -45,6 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="$0"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/count"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,6 +65,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="$0"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonPlus"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,6 +78,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="0"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/subtotal"
         app:layout_constraintTop_toTopOf="parent" />

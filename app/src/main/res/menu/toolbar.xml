@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/perfilid"
         android:title="@string/Perfil" />
@@ -20,7 +21,7 @@
     <item
         android:id="@+id/action_cart"
         style="@android:style/Widget.ActionButton"
-        android:icon="@drawable/ic_action_name"
+        android:icon="@drawable/whitecart_foreground"
         android:onClick="changeFragmentToCart"
         android:orderInCategory="1000"
         android:title="CartSimbol"

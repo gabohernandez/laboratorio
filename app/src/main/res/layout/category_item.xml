@@ -16,6 +16,7 @@
         android:cropToPadding="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_gallery"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -27,7 +28,8 @@
         android:singleLine="false"
         android:text=""
         android:textColor="@color/black"
-        android:fontFamily="@font/alegreya_sans_thin"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image" />
 

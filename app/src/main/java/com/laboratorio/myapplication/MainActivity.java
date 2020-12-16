@@ -5,8 +5,10 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("La Justa");
         toolbar.setSubtitle("Economía Social Solidaria");
+        toolbar.setSubtitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.WHITE);
 
         nDialog =  new ProgressDialog(this);
         nDialog.setMessage("Loading..");
@@ -135,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         CartFragment cf = new CartFragment();
         cf.products = this.cartProducts.values().stream().collect(Collectors.toList());
         ft.replace(R.id.placeholder, cf);
-        // ft.add(R.id.placeholder,f);
+        //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();
     }
@@ -173,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 pf.products = products;
                 //pf.products = response.body();
                 ft.replace(R.id.placeholder, pf);
-                // ft.add(R.id.placeholder,f);
+                //ft.add(R.id.placeholder,pf);
                 ft.commit();
                 nDialog.hide();
             }
