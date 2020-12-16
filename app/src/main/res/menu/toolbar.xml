@@ -20,7 +20,7 @@
     <item
         android:id="@+id/action_cart"
         style="@android:style/Widget.ActionButton"
-        android:icon="@mipmap/ic_launcher_foreground"
+        android:icon="@drawable/ic_action_name"
         android:onClick="onClick"
         android:orderInCategory="1000"
         android:title="CartSimbol"

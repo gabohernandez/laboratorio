@@ -17,7 +17,7 @@
         android:textColor="@color/black"
         android:fontFamily="@font/alegreya_sans_thin"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:logo="@mipmap/lajustaico"
+        app:logo="@mipmap/lajustanewico"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
