@@ -24,7 +24,7 @@
 
     <string name="Perfil">Perfil</string>
     <string name="Noticias">Noticias</string>
-    <string name="Recetas">Recetas</string>
-    <string name="PreguntasFrecuentes">PreguntasFrecuentes</string>
+    <string name="Inicio">Inicio</string>
     <string name="SobreNosotros">Sobre Nosotros</string>
+    <string name="cartsimbol">CartSimbol</string>
 </resources>

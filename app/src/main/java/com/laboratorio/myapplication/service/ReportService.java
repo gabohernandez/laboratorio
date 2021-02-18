@@ -25,7 +25,6 @@ public class ReportService extends IntentService {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-235-40-183.compute-1.amazonaws.com/api/news")
                 .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
@@ -37,7 +36,7 @@ public class ReportService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         try {
-            List<Report> products = service.getReports().execute().body();
+            List<Report> report = service.getReports().execute().body();
         }catch (Exception e) {
             e.printStackTrace();
         }

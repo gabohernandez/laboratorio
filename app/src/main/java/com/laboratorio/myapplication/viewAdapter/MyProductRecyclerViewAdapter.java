@@ -1,4 +1,6 @@
-package com.laboratorio.myapplication;
+package com.laboratorio.myapplication.viewAdapter;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,29 +13,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
+import com.laboratorio.myapplication.MainActivity;
+import com.laboratorio.myapplication.R;
 import com.laboratorio.myapplication.dummy.DummyContent.DummyItem;
 import com.laboratorio.myapplication.model.Cart;
 import com.laboratorio.myapplication.model.Product;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerViewAdapter.ViewHolder> {
+public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProductRecyclerViewAdapter.ViewHolder> {
 
     private List<Product> mValues = new ArrayList<>();
-    private Map<Long, Product> cartProducts = new HashMap<>();;
+    private List<Cart> cart = new ArrayList<>();
     private Context context;
 
-    public CartRecyclerViewAdapter(List<Product> items) {
+    public MyProductRecyclerViewAdapter(List<Product> items) {
         mValues = items;
     }
 
@@ -41,7 +40,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cart_product_item, parent, false);
+                .inflate(R.layout.product_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -55,19 +54,25 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         byte[] decodedString = Base64.decode(mValues.get(position).getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
         holder.image.setImageBitmap(decodedByte);
-
         holder.count.setText(String.valueOf(mValues.get(position).getCount()));
-        holder.subtotal.setText(String.valueOf("$" + String.valueOf(new BigDecimal(mValues.get(position).getCount()).multiply(mValues.get(position).getPrice()))));
 
-
-        holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
+        holder.buttonPlus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Product p = mValues.get(position);
-                mValues.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mValues.size());
+                holder.count.setText(String.valueOf(Integer.valueOf(holder.count.getText().toString()) + 1));
+                mValues.get(position).setCount(Integer.valueOf(holder.count.getText().toString()));
+                if (context instanceof MainActivity){
+                    ((MainActivity) context).modifyTotal(mValues.get(position));
+                }
+            }
+        });
+
+        holder.buttonSubstract.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int newCount = Integer.valueOf(holder.count.getText().toString()) - 1;
+                holder.count.setText(String.valueOf(newCount <= 0 ? 0: newCount ));
+                mValues.get(position).setCount(Integer.valueOf(holder.count.getText().toString()));
                 if (context instanceof  MainActivity){
-                   ((MainActivity) context).deleteProduct(p);
+                    ((MainActivity) context).modifyTotal(mValues.get(position));
                 }
             }
         });
@@ -84,9 +89,9 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         public final TextView description;
         public final TextView count;
         public final TextView price;
-        public final TextView subtotal;
         public final ImageView image;
-        public final Button buttonDelete;
+        public final Button buttonPlus;
+        public final Button buttonSubstract;
         public Product mItem;
 
         public ViewHolder(View view) {
@@ -96,10 +101,10 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             description = (TextView) view.findViewById(R.id.description);
             count = (TextView) view.findViewById(R.id.count);
             price = (TextView) view.findViewById(R.id.price);
-            subtotal = (TextView) view.findViewById(R.id.subtotal);
             image = (ImageView) view.findViewById(R.id.image);
-            buttonDelete = (Button) view.findViewById(R.id.buttonPlus);
-         }
+            buttonPlus = (Button) view.findViewById(R.id.buttonPlus);
+            buttonSubstract = (Button) view.findViewById(R.id.buttonSubstract);
+        }
 
     }
 

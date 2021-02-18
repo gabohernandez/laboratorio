@@ -1,4 +1,4 @@
-package com.laboratorio.myapplication;
+package com.laboratorio.myapplication.viewAdapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,19 +7,16 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.laboratorio.myapplication.R;
 import com.laboratorio.myapplication.dummy.DummyContent.DummyItem;
 
 import com.laboratorio.myapplication.model.Report;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +25,7 @@ import java.util.List;
  */
 public class MyReportRecyclerViewAdapter extends RecyclerView.Adapter<MyReportRecyclerViewAdapter.ViewHolder> {
 
-    private List<Report> mValues = new ArrayList<>();
+    private List<Report> mValues;
     private Context context;
 
     public MyReportRecyclerViewAdapter(List<Report> items) {

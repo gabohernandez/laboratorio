@@ -3,17 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/inicioid"
+        android:title="@string/Inicio" />
+    <item
         android:id="@+id/perfilid"
+        android:onClick="changeFragmentToLogin"
         android:title="@string/Perfil" />
     <item
         android:id="@+id/noticiasid"
+        android:onClick="changeFragmentToReports"
         android:title="@string/Noticias" />
-    <item
-        android:id="@+id/recetasid"
-        android:title="@string/Recetas" />
-    <item
-        android:id="@+id/preguntasid"
-        android:title="@string/PreguntasFrecuentes" />
     <item
         android:id="@+id/nosotrosid"
         android:title="@string/SobreNosotros" />
@@ -24,6 +23,6 @@
         android:icon="@drawable/whitecart_foreground"
         android:onClick="changeFragmentToCart"
         android:orderInCategory="1000"
-        android:title="CartSimbol"
+        android:title="@string/cartsimbol"
         app:showAsAction="ifRoom" />
 </menu>

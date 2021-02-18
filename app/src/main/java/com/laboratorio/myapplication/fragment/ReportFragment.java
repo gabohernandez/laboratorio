@@ -1,4 +1,4 @@
-package com.laboratorio.myapplication;
+package com.laboratorio.myapplication.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.laboratorio.myapplication.model.Product;
+import com.laboratorio.myapplication.viewAdapter.MyReportRecyclerViewAdapter;
+import com.laboratorio.myapplication.R;
 import com.laboratorio.myapplication.model.Report;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class ReportFragment extends Fragment {
     public List<Report> report;
 
     // TODO: Customize parameter initialization
+
     @SuppressWarnings("unused")
     public static ReportFragment newInstance(int columnCount) {
         ReportFragment fragment = new ReportFragment();

@@ -1,4 +1,4 @@
-package com.laboratorio.myapplication;
+package com.laboratorio.myapplication.viewAdapter;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.laboratorio.myapplication.MainActivity;
+import com.laboratorio.myapplication.R;
 import com.laboratorio.myapplication.dummy.DummyContent.DummyItem;
 import com.laboratorio.myapplication.model.Category;
 
@@ -44,7 +46,7 @@ public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCatego
         holder.name.setText(mValues.get(position).getName());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (context instanceof  MainActivity){
+                if (context instanceof MainActivity){
                     ((MainActivity) context).changeFragmentToProductsWithCategory(mValues.get(position).getId());
                 }
             }

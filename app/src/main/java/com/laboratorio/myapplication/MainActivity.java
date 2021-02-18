@@ -6,20 +6,22 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.laboratorio.myapplication.model.Cart;
+import com.laboratorio.myapplication.fragment.CartFragment;
+import com.laboratorio.myapplication.fragment.CategoryFragment;
+import com.laboratorio.myapplication.fragment.LoginFragment;
+import com.laboratorio.myapplication.fragment.ProductFragment;
+import com.laboratorio.myapplication.fragment.ReportFragment;
 import com.laboratorio.myapplication.model.Category;
 import com.laboratorio.myapplication.model.Product;
+import com.laboratorio.myapplication.model.Report;
 import com.laboratorio.myapplication.service.Service;
 
 import androidx.navigation.NavController;
@@ -32,7 +34,6 @@ import androidx.appcompat.widget.Toolbar;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private Long partialPrice = 0L;
 
     private Context context;
+    private Map<Long, Report> reports = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment f = this.getFragmentManager().findFragmentById(R.id.placeholder);
-        if (f instanceof ProductFragment || f instanceof  CartFragment){
+        if (f instanceof ProductFragment || f instanceof CartFragment){
             changeFragmentToCategory();
         }
 
@@ -142,6 +144,50 @@ public class MainActivity extends AppCompatActivity {
         //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();
+    }
+
+    public void changeFragmentToLogin(MenuItem item) {
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        LoginFragment cf = new LoginFragment();
+        ft.replace(R.id.placeholder, cf);
+        //ft.add(R.id.placeholder,f);
+        ft.commit();
+        nDialog.hide();
+    }
+
+    public void changeFragmentToReports(MenuItem item){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-235-40-183.compute-1.amazonaws.com/api/news/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.getReports().enqueue(new Callback<List<Report>>() {
+            @Override
+            public void onResponse(Call<List<Report>> call, Response<List<Report>> response) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ReportFragment pf = new ReportFragment();
+                List<Report> reports = new ArrayList<>();
+
+                pf.reports = reports;
+                //pf.products = response.body();
+                ft.replace(R.id.placeholder, pf);
+                //ft.add(R.id.placeholder,pf);
+                ft.commit();
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<List<Report>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
     public void changeFragmentToProductsWithCategory(Long categoryId){

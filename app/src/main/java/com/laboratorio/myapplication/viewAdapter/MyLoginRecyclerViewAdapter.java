@@ -1,4 +1,4 @@
-package com.laboratorio.myapplication;
+package com.laboratorio.myapplication.viewAdapter;
 
 import android.view.ViewGroup;
 
