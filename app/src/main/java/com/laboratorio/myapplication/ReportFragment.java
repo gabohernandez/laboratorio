@@ -1,40 +1,39 @@
-package com.laboratorio.myapplication.fragment;
+package com.laboratorio.myapplication;
 
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.laboratorio.myapplication.viewAdapter.MyProductRecyclerViewAdapter;
-import com.laboratorio.myapplication.R;
-import com.laboratorio.myapplication.model.Product;
+import com.laboratorio.myapplication.model.Report;
 
 import java.util.List;
 
 /**
  * A fragment representing a list of Items.
  */
-public class ProductFragment extends Fragment {
+public class ReportFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    public List<Report> reports;
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    public List<Product> products;
+    public List<Report> report;
 
     // TODO: Customize parameter initialization
+
     @SuppressWarnings("unused")
-    public static ProductFragment newInstance(int columnCount) {
-        ProductFragment fragment = new ProductFragment();
+    public static ReportFragment newInstance(int columnCount) {
+        ReportFragment fragment = new ReportFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -69,7 +68,7 @@ public class ProductFragment extends Fragment {
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), layout.getOrientation()));
             }
 
-            recyclerView.setAdapter(new MyProductRecyclerViewAdapter(products));
+            recyclerView.setAdapter(new MyReportRecyclerViewAdapter(report));
         }
         return view;
     }

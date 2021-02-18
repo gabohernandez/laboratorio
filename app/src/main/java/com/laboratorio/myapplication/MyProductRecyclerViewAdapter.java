@@ -1,4 +1,4 @@
-package com.laboratorio.myapplication.viewAdapter;
+package com.laboratorio.myapplication;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.laboratorio.myapplication.MainActivity;
-import com.laboratorio.myapplication.R;
 import com.laboratorio.myapplication.dummy.DummyContent.DummyItem;
 import com.laboratorio.myapplication.model.Cart;
 import com.laboratorio.myapplication.model.Product;

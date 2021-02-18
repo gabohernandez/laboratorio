@@ -1,4 +1,4 @@
-package com.laboratorio.myapplication.fragment;
+package com.laboratorio.myapplication;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.laboratorio.myapplication.viewAdapter.MySingleReportRecyclerViewAdapter;
-import com.laboratorio.myapplication.R;
 import com.laboratorio.myapplication.model.Report;
 
 public class SingleReportFragment extends Fragment {

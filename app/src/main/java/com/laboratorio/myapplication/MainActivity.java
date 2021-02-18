@@ -14,11 +14,6 @@ import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.laboratorio.myapplication.fragment.CartFragment;
-import com.laboratorio.myapplication.fragment.CategoryFragment;
-import com.laboratorio.myapplication.fragment.LoginFragment;
-import com.laboratorio.myapplication.fragment.ProductFragment;
-import com.laboratorio.myapplication.fragment.ReportFragment;
 import com.laboratorio.myapplication.model.Category;
 import com.laboratorio.myapplication.model.Product;
 import com.laboratorio.myapplication.model.Report;

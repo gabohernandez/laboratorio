@@ -1,4 +1,4 @@
-package com.laboratorio.myapplication.viewAdapter;
+package com.laboratorio.myapplication;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.laboratorio.myapplication.R;
 import com.laboratorio.myapplication.model.Report;
 
 public class MySingleReportRecyclerViewAdapter extends RecyclerView.Adapter<MySingleReportRecyclerViewAdapter.ViewHolder> {

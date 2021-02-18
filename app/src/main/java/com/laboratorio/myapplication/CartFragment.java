@@ -1,4 +1,4 @@
-package com.laboratorio.myapplication.fragment;
+package com.laboratorio.myapplication;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.laboratorio.myapplication.viewAdapter.MyCartRecyclerViewAdapter;
-import com.laboratorio.myapplication.R;
 import com.laboratorio.myapplication.model.Product;
 
 import java.util.List;
