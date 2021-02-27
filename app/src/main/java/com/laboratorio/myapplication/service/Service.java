@@ -20,4 +20,8 @@ public interface Service {
 
     @GET("/api/news")
     Call<List<Report>> getReports();
+
+    //TODO: Chequear
+    @GET("/api/product/{id}")
+    Call<Product> getProduct();
 }

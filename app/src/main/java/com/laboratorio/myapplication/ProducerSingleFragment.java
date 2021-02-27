@@ -1,0 +1,4 @@
+package com.laboratorio.myapplication;
+
+public class ProducerSingleFragment {
+}
