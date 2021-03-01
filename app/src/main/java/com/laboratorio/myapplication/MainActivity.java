@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-235-40-183.compute-1.amazonaws.com/api/category/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/category/")
                 .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
 
         Service service = retrofit.create(Service.class);
@@ -152,12 +152,23 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
+    public void changeFragmentToAboutUs(MenuItem item) {
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        AboutUsFragment cf = new AboutUsFragment();
+        ft.replace(R.id.placeholder, cf);
+        //ft.add(R.id.placeholder,f);
+        ft.commit();
+        nDialog.hide();
+    }
+
     public void changeFragmentToReports(MenuItem item){
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-235-40-183.compute-1.amazonaws.com/api/news/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/news/")
                 .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
 
         Service service = retrofit.create(Service.class);
@@ -190,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-235-40-183.compute-1.amazonaws.com/api/product/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/product/")
                 .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
 
         Service service = retrofit.create(Service.class);

@@ -24,7 +24,7 @@ public class ProductService extends IntentService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-235-40-183.compute-1.amazonaws.com/api/product")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/product")
                 .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
 
         Service service = retrofit.create(Service.class);

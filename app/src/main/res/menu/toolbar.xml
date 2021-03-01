@@ -15,6 +15,7 @@
         android:title="@string/Noticias" />
     <item
         android:id="@+id/nosotrosid"
+        android:onClick="changeFragmentToAboutUs"
         android:title="@string/SobreNosotros" />
 
     <item

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/aboutus"
+        android:layout_width="362dp"
+        android:layout_height="297dp"
+        android:duplicateParentState="false"
+        android:editable="false"
+        android:gravity="center_horizontal"
+        android:text="Somos La Justa: Comercializadora de la economía social y solidaria de la Universidad Nacional de La Plata y  FeriaManos de la Tierra. Fomentamos un consumo directo del productor al consumidor, un compre local de alimentos dela agricultura familiar y otros productos artesanales de la economía popular."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.133" />
+</androidx.constraintlayout.widget.ConstraintLayout>
