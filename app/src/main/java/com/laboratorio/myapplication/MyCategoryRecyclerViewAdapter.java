@@ -74,7 +74,7 @@ public class MyCategoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCatego
             super(view);
             mView = view;
             name = (TextView) view.findViewById(R.id.name);
-            image = (ImageView) view.findViewById(R.id.image);
+            image = (ImageView) view.findViewById(R.id.categoryImageView);
 
 
         }

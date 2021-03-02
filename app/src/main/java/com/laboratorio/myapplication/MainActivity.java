@@ -96,40 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void changeFragmentToCategory(){
-        nDialog.show();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/category/")
-                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
-
-        Service service = retrofit.create(Service.class);
-
-        service.getCategories().enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                CategoryFragment cf = new CategoryFragment();
-                cf.categories = response.body();
-                ft.replace(R.id.placeholder, cf);
-                // ft.add(R.id.placeholder,f);
-                ft.commit();
-                nDialog.hide();
-            }
-
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
-    }
-
     public boolean onClick(MenuItem item) {
         return true;
     }
 
+    //CART
     public void changeFragmentToCart(MenuItem item) {
         nDialog.show();
         FragmentManager fm = getFragmentManager();
@@ -142,94 +113,8 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
-    public void changeFragmentToLogin(MenuItem item) {
-        nDialog.show();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        LoginFragment cf = new LoginFragment();
-        ft.replace(R.id.placeholder, cf);
-        //ft.add(R.id.placeholder,f);
-        ft.commit();
-        nDialog.hide();
-    }
 
-    public void changeFragmentToAboutUs(MenuItem item) {
-        nDialog.show();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        AboutUsFragment cf = new AboutUsFragment();
-        ft.replace(R.id.placeholder, cf);
-        //ft.add(R.id.placeholder,f);
-        ft.commit();
-        nDialog.hide();
-    }
-
-    public void changeFragmentToReports(MenuItem item){
-        nDialog.show();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/news/")
-                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
-
-        Service service = retrofit.create(Service.class);
-
-        service.getReports().enqueue(new Callback<List<Report>>() {
-            @Override
-            public void onResponse(Call<List<Report>> call, Response<List<Report>> response) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ReportFragment pf = new ReportFragment();
-                List<Report> reports = new ArrayList<>();
-
-                pf.reports = reports;
-                //pf.products = response.body();
-                ft.replace(R.id.placeholder, pf);
-                //ft.add(R.id.placeholder,pf);
-                ft.commit();
-                nDialog.hide();
-            }
-
-            @Override
-            public void onFailure(Call<List<Report>> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
-    }
-
-    public void changeFragmentToProducers(MenuItem item){
-        nDialog.show();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/producers/")
-                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
-
-        Service service = retrofit.create(Service.class);
-
-        service.getProducers().enqueue(new Callback<List<Producer>>() {
-            @Override
-            public void onResponse(Call<List<Producer>> call, Response<List<Producer>> response) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ProducerFragment pf = new ProducerFragment();
-                List<Producer> producers = new ArrayList<>();
-
-                pf.producers = producers;
-                //pf.products = response.body();
-                ft.replace(R.id.placeholder, pf);
-                //ft.add(R.id.placeholder,pf);
-                ft.commit();
-                nDialog.hide();
-            }
-
-            @Override
-            public void onFailure(Call<List<Producer>> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
-    }
-
+    //PRODUCT
     public void changeFragmentToProductsWithCategory(Long categoryId){
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
@@ -274,11 +159,155 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+                //TODO
+    public void changeFragmentToSingleProduct(){
+
+    }
+
+    //CATEGORY
+    public void changeFragmentToCategory(){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/category/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.getCategories().enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                CategoryFragment cf = new CategoryFragment();
+                cf.categories = response.body();
+                ft.replace(R.id.placeholder, cf);
+                // ft.add(R.id.placeholder,f);
+                ft.commit();
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+    //CHECKOUT
+                //TODO
+    public void changeFragmentToCheckout() {
+
+    }
+
+    //REPORT
+    public void changeFragmentToReports(MenuItem item){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/news/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.getReports().enqueue(new Callback<List<Report>>() {
+            @Override
+            public void onResponse(Call<List<Report>> call, Response<List<Report>> response) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ReportFragment pf = new ReportFragment();
+                List<Report> reports = new ArrayList<>();
+
+                pf.reports = reports;
+                //pf.products = response.body();
+                ft.replace(R.id.placeholder, pf);
+                //ft.add(R.id.placeholder,pf);
+                ft.commit();
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<List<Report>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+                //TODO
+    public void changeFragmenteToSingleReport(){
+
+    }
+
+    //LOGIN
+    public void changeFragmentToLogin(MenuItem item) {
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        LoginFragment cf = new LoginFragment();
+        ft.replace(R.id.placeholder, cf);
+        //ft.add(R.id.placeholder,f);
+        ft.commit();
+        nDialog.hide();
+    }
+
+    //PRODUCER
+                //TODO
+    public void changeFragmentToSingleProducer(){
+
+    }
+
+    public void changeFragmentToProducers(MenuItem item){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/producers/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.getProducers().enqueue(new Callback<List<Producer>>() {
+            @Override
+            public void onResponse(Call<List<Producer>> call, Response<List<Producer>> response) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ProducerFragment pf = new ProducerFragment();
+                List<Producer> producers = new ArrayList<>();
+
+                pf.producers = producers;
+                //pf.products = response.body();
+                ft.replace(R.id.placeholder, pf);
+                //ft.add(R.id.placeholder,pf);
+                ft.commit();
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<List<Producer>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+    //ABOUT US
+    public void changeFragmentToAboutUs(MenuItem item) {
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        AboutUsFragment cf = new AboutUsFragment();
+        ft.replace(R.id.placeholder, cf);
+        //ft.add(R.id.placeholder,f);
+        ft.commit();
+        nDialog.hide();
+    }
 
     public void modifyTotal(Product product){
         cartProducts.put(product.getId(), product);
         updateTotal();
     }
+
     private void updateTotal() {
         BigDecimal total = BigDecimal.ZERO;
         for (Product p: cartProducts.values()){
@@ -288,7 +317,6 @@ public class MainActivity extends AppCompatActivity {
         TextView totalText = (TextView) findViewById(R.id.valuePrice);
         totalText.setText(total.toString());
     }
-
 
     public void deleteProduct(Product product) {
         this.cartProducts.remove(product.getId());

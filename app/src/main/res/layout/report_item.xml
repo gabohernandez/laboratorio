@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/reportImage"
         android:layout_width="82dp"
         android:layout_height="86dp"
         android:adjustViewBounds="false"
@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/ic_menu_gallery" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/reportTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -30,11 +30,11 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.427"
-        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintStart_toEndOf="@+id/reportImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/subtitle"
+        android:id="@+id/reportSubtitle"
         android:layout_width="228dp"
         android:layout_height="21dp"
         android:layout_marginStart="32dp"
@@ -47,8 +47,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image"
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/reportImage"
+        app:layout_constraintTop_toBottomOf="@+id/reportTitle"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

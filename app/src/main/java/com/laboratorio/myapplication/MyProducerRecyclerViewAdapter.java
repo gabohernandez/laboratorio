@@ -7,16 +7,13 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.laboratorio.myapplication.model.Cart;
 import com.laboratorio.myapplication.model.Producer;
-import com.laboratorio.myapplication.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +32,12 @@ public class MyProducerRecyclerViewAdapter extends RecyclerView.Adapter<MyProduc
     public MyProducerRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.product_item, parent, false);
-        return new MyProducerRecyclerViewAdapter.ViewHolder(view);
+                .inflate(R.layout.producer_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyProducerRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.title.setText(mValues.get(position).getName());
         holder.description.setText(mValues.get(position).getDescription());
@@ -65,9 +62,9 @@ public class MyProducerRecyclerViewAdapter extends RecyclerView.Adapter<MyProduc
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            title = (TextView) view.findViewById(R.id.title);
-            description = (TextView) view.findViewById(R.id.description);
-            image = (ImageView) view.findViewById(R.id.image);
+            title = (TextView) view.findViewById(R.id.producerTitle);
+            description = (TextView) view.findViewById(R.id.producerDetail);
+            image = (ImageView) view.findViewById(R.id.producerImageView);
         }
 
     }

@@ -46,7 +46,7 @@ public class MyProducerSingleRecyclerViewAdapter extends RecyclerView.Adapter<My
             phone = (TextView) view.findViewById(R.id.producerPhone);
             origin = (TextView) view.findViewById(R.id.producerOrigin);
             description = (TextView) view.findViewById(R.id.producerDescription);
-            image = (ImageView) view.findViewById(R.id.image);
+            image = (ImageView) view.findViewById(R.id.producerImageView);
         }
 
     }

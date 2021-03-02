@@ -65,9 +65,9 @@ public class MyReportRecyclerViewAdapter extends RecyclerView.Adapter<MyReportRe
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            image = (ImageView) view.findViewById(R.id.image);
-            title = (TextView) view.findViewById(R.id.title);
-            subtitle = (TextView) view.findViewById(R.id.subtitle);
+            image = (ImageView) view.findViewById(R.id.reportImage);
+            title = (TextView) view.findViewById(R.id.reportTitle);
+            subtitle = (TextView) view.findViewById(R.id.reportSubtitle);
         }
 
     }

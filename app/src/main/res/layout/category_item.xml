@@ -10,7 +10,7 @@
     >
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/categoryImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:adjustViewBounds="false"
@@ -32,6 +32,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image" />
+        app:layout_constraintStart_toEndOf="@+id/categoryImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

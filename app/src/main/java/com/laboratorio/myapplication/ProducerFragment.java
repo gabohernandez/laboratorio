@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.laboratorio.myapplication.model.Producer;
-import com.laboratorio.myapplication.model.Product;
 
 import java.util.List;
 
@@ -26,6 +25,16 @@ public class ProducerFragment extends Fragment {
 
     public List<Producer> producers;
 
+    // TODO: Customize parameter initialization
+    public static ProducerFragment newInstance(int columnCount) {
+        ProducerFragment fragment = new ProducerFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -34,6 +43,7 @@ public class ProducerFragment extends Fragment {
         }
     }
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.producer_item_list, container, false);

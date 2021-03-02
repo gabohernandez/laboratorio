@@ -95,11 +95,11 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            title = (TextView) view.findViewById(R.id.title);
-            description = (TextView) view.findViewById(R.id.description);
+            title = (TextView) view.findViewById(R.id.productTitle);
+            description = (TextView) view.findViewById(R.id.productDetail);
             count = (TextView) view.findViewById(R.id.count);
             price = (TextView) view.findViewById(R.id.price);
-            image = (ImageView) view.findViewById(R.id.image);
+            image = (ImageView) view.findViewById(R.id.productImageView);
             buttonPlus = (Button) view.findViewById(R.id.buttonPlus);
             buttonSubstract = (Button) view.findViewById(R.id.buttonSubstract);
         }

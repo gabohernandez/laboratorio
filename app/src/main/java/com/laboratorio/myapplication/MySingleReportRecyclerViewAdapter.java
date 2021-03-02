@@ -60,7 +60,7 @@ public class MySingleReportRecyclerViewAdapter extends RecyclerView.Adapter<MySi
             mView = view;
             title = (TextView) view.findViewById(R.id.titleText);
             subtitle = (TextView) view.findViewById(R.id.subtitleText);
-            image = (ImageView) view.findViewById(R.id.image);
+            image = (ImageView) view.findViewById(R.id.producerImageView);
             text = (TextView) view.findViewById(R.id.contentText);
             url = (TextView) view.findViewById(R.id.url);
         }
