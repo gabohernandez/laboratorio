@@ -1,4 +1,7 @@
 package com.laboratorio.myapplication;
 
-public class CheckoutFragment {
+import android.app.Fragment;
+
+public class CheckoutFragment extends Fragment {
+
 }

@@ -1,6 +1,8 @@
 package com.laboratorio.myapplication;
 
-public class ProductSingleItemFragment {
+import android.app.Fragment;
+
+public class ProductSingleItemFragment extends Fragment {
 
 
 }

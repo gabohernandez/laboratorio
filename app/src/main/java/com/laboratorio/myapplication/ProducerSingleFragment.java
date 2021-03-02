@@ -1,4 +1,6 @@
 package com.laboratorio.myapplication;
 
-public class ProducerSingleFragment {
+import android.app.Fragment;
+
+public class ProducerSingleFragment extends Fragment {
 }
