@@ -10,6 +10,7 @@
         android:id="@+id/aboutus"
         android:layout_width="362dp"
         android:layout_height="297dp"
+        android:layout_marginBottom="52dp"
         android:duplicateParentState="false"
         android:editable="false"
         android:gravity="center_horizontal"
@@ -17,7 +18,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="225dp"
+        android:layout_height="266dp"
+        app:layout_constraintBottom_toTopOf="@+id/aboutus"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
+        android:src="@mipmap/lajustanewico"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
