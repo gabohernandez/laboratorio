@@ -5,13 +5,9 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
-import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.laboratorio.myapplication.model.Product;
-import com.laboratorio.myapplication.model.Report;
-
-import java.util.List;
+import com.laboratorio.myapplication.model.ReportPage;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -37,7 +33,7 @@ public class ReportService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         try {
-            List<Report> report = service.getReports().execute().body();
+            ReportPage report = service.getReports().execute().body();
         }catch (Exception e) {
             e.printStackTrace();
         }

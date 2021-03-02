@@ -6,8 +6,12 @@
         android:id="@+id/inicioid"
         android:title="@string/Inicio" />
     <item
-        android:id="@+id/perfilid"
+        android:id="@+id/loginid"
         android:onClick="changeFragmentToLogin"
+        android:title="@string/Login" />
+    <item
+        android:id="@+id/perfilid"
+        android:onClick="changeFragmentToProfile"
         android:title="@string/Perfil" />
     <item
         android:id="@+id/noticiasid"
@@ -21,6 +25,10 @@
         android:id="@+id/nosotrosid"
         android:onClick="changeFragmentToAboutUs"
         android:title="@string/SobreNosotros" />
+    <item
+        android:id="@+id/logoutid"
+        android:onClick="logout"
+        android:title="@string/Logout" />
 
     <item
         android:id="@+id/action_cart"

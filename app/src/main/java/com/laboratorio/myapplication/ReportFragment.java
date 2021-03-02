@@ -23,7 +23,6 @@ public class ReportFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    public List<Report> reports;
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
@@ -52,7 +51,7 @@ public class ReportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.product_item_list, container, false);
+        View view = inflater.inflate(R.layout.report_item_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {

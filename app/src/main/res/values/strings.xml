@@ -22,6 +22,8 @@
     <string name="title_activity_main3">MainActivity</string>
     <string name="title_activity_toolbar">ToolbarActivity</string>
 
+    <string name="Login">Login</string>
+    <string name="Logout">Logout</string>
     <string name="Perfil">Perfil</string>
     <string name="Noticias">Noticias</string>
     <string name="Inicio">Inicio</string>

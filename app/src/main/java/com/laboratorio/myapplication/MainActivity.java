@@ -10,14 +10,19 @@ import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.laboratorio.myapplication.model.BodyLoginRequest;
 import com.laboratorio.myapplication.model.Category;
+import com.laboratorio.myapplication.model.LoginResponse;
+import com.laboratorio.myapplication.model.ReportPage;
 import com.laboratorio.myapplication.model.Producer;
 import com.laboratorio.myapplication.model.Product;
 import com.laboratorio.myapplication.model.Report;
+import com.laboratorio.myapplication.model.User;
 import com.laboratorio.myapplication.service.Service;
 
 import androidx.navigation.NavController;
@@ -52,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private Map<Long, Report> reports = new HashMap<>();
 
+    private LoginResponse loggedUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setSubtitle("Economía Social Solidaria");
         toolbar.setSubtitleTextColor(Color.WHITE);
         toolbar.setTitleTextColor(Color.WHITE);
+
+        //toolbar.findViewById(R.id.logoutid);
+
+     //   findViewById(R.id.logoutid).setVisibility(View.INVISIBLE);
 
         nDialog =  new ProgressDialog(this);
         nDialog.setMessage("Loading..");
@@ -164,6 +175,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void logout(MenuItem item){
+
+    }
+
+    public void changeFragmentToProfile(MenuItem item){
+
+    }
+
     //CATEGORY
     public void changeFragmentToCategory(){
         nDialog.show();
@@ -212,15 +231,15 @@ public class MainActivity extends AppCompatActivity {
 
         Service service = retrofit.create(Service.class);
 
-        service.getReports().enqueue(new Callback<List<Report>>() {
+        service.getReports().enqueue(new Callback<ReportPage>() {
             @Override
-            public void onResponse(Call<List<Report>> call, Response<List<Report>> response) {
+            public void onResponse(Call<ReportPage> call, Response<ReportPage> response) {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ReportFragment pf = new ReportFragment();
-                List<Report> reports = new ArrayList<>();
+                List<Report> reports = response.body().getPage();
 
-                pf.reports = reports;
+                pf.report = reports;
                 //pf.products = response.body();
                 ft.replace(R.id.placeholder, pf);
                 //ft.add(R.id.placeholder,pf);
@@ -229,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Report>> call, Throwable t) {
+            public void onFailure(Call<ReportPage> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });
@@ -252,6 +271,35 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
+    public  void login(String user, String password){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        BodyLoginRequest body = new BodyLoginRequest();
+        body.setUserName(user);
+        body.setUserPassword(password);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/producer/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.login(body).enqueue(new Callback<LoginResponse>() {
+
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    System.out.println("Logout");
+                    loggedUser = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                System.out.println("Error");
+            }
+        });
+    }
+
     //PRODUCER
                 //TODO
     public void changeFragmentToSingleProducer(){
@@ -263,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/producers/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/producer/")
                 .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
 
         Service service = retrofit.create(Service.class);
@@ -276,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
                 ProducerFragment pf = new ProducerFragment();
                 List<Producer> producers = new ArrayList<>();
 
-                pf.producers = producers;
+                pf.producers = response.body();
                 //pf.products = response.body();
                 ft.replace(R.id.placeholder, pf);
                 //ft.add(R.id.placeholder,pf);
