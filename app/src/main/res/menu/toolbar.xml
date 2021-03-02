@@ -14,6 +14,10 @@
         android:onClick="changeFragmentToReports"
         android:title="@string/Noticias" />
     <item
+        android:id="@+id/productoresid"
+        android:onClick="changeFragmentToProducers"
+        android:title="@string/Productores" />
+    <item
         android:id="@+id/nosotrosid"
         android:onClick="changeFragmentToAboutUs"
         android:title="@string/SobreNosotros" />

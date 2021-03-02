@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laboratorio.myapplication.model.Category;
+import com.laboratorio.myapplication.model.Producer;
 import com.laboratorio.myapplication.model.Product;
 import com.laboratorio.myapplication.model.Report;
 import com.laboratorio.myapplication.service.Service;
@@ -191,6 +192,39 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Report>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+    public void changeFragmentToProducers(MenuItem item){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/producers/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.getProducers().enqueue(new Callback<List<Producer>>() {
+            @Override
+            public void onResponse(Call<List<Producer>> call, Response<List<Producer>> response) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ProducerFragment pf = new ProducerFragment();
+                List<Producer> producers = new ArrayList<>();
+
+                pf.producers = producers;
+                //pf.products = response.body();
+                ft.replace(R.id.placeholder, pf);
+                //ft.add(R.id.placeholder,pf);
+                ft.commit();
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<List<Producer>> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });

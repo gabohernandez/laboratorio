@@ -25,6 +25,7 @@
     <string name="Perfil">Perfil</string>
     <string name="Noticias">Noticias</string>
     <string name="Inicio">Inicio</string>
+    <string name="Productores">Productores</string>
     <string name="SobreNosotros">Sobre Nosotros</string>
     <string name="cartsimbol">CartSimbol</string>
 </resources>

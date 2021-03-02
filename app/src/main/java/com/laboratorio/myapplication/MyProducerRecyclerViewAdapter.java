@@ -45,8 +45,8 @@ public class MyProducerRecyclerViewAdapter extends RecyclerView.Adapter<MyProduc
         holder.title.setText(mValues.get(position).getName());
         holder.description.setText(mValues.get(position).getDescription());
         String s = "data:image/jpeg;base64,";
-        byte[] decodedString = Base64.decode(mValues.get(position).getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
+        byte[] decodedString = Base64.decode(mValues.get(position).getImages().get(1).getValue().replace(s, ""), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         holder.image.setImageBitmap(decodedByte);
     }
 

@@ -1,5 +1,6 @@
 package com.laboratorio.myapplication;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import com.laboratorio.myapplication.model.Product;
 
 import java.util.List;
 
-public class ProducerFragment {
+public class ProducerFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -26,7 +27,11 @@ public class ProducerFragment {
     public List<Producer> producers;
 
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        if (getArguments() != null) {
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+        }
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
