@@ -61,5 +61,5 @@ public interface Service {
     Call<General> getGeneralActive();
 
     @POST("/api/cart")
-    Call saveCart(@Header("Authorization") String token, @Body CartBodyRequest body);
+    Call<Object> saveCart(@Header("Authorization") String token, @Body CartBodyRequest body);
 }

@@ -376,6 +376,11 @@ public class MainActivity extends AppCompatActivity {
 
     //LOGIN
     public void changeFragmentToLogin(MenuItem item) {
+        changeFragmentToLogin();
+    }
+
+    //LOGIN
+    public void changeFragmentToLogin() {
         nDialog.show();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -571,7 +576,7 @@ public class MainActivity extends AppCompatActivity {
 
         Service service = retrofit.create(Service.class);
 
-        service.updateProfile(loggedUser.getValue(), loggedUser.getUser(), loggedUser.getUser().getId()).enqueue(new Callback<User>() {
+        service.updateProfile("Bearer " + loggedUser.getValue(), loggedUser.getUser(), loggedUser.getUser().getId()).enqueue(new Callback<User>() {
 
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -581,7 +586,8 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     showToast(false, "Perfil actualizado con éxito", null);
                     loggedUser.setUser(response.body());
-                    changeFragmentToProfile();
+                    cartProducts= new HashMap<>();
+                    changeFragmentToCategory();
                 }
             }
 
@@ -595,6 +601,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showLastStep() {
+
+        if (loggedUser == null){
+            changeFragmentToLogin();
+            return;
+        }
+
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -613,6 +625,7 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     CheckoutFragment pf = new CheckoutFragment();
+
                     pf.total = getTotal();
                     pf.general = response.body();
                     //pf.products = response.body();
@@ -675,6 +688,8 @@ public class MainActivity extends AppCompatActivity {
         cnd.setNode(cn);
         body.setNodeDate(cnd);
 
+        body.setObservation(medioPago);
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -683,13 +698,13 @@ public class MainActivity extends AppCompatActivity {
 
         Service service = retrofit.create(Service.class);
 
-        service.saveCart(loggedUser.getValue(), body).enqueue(new Callback() {
+        service.saveCart("Bearer " + loggedUser.getValue(), body).enqueue(new Callback<Object>() {
 
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 nDialog.hide();
                 if (response.code() != 200){
-                    showToast(true, "Se ha producido al intentar comprar", response.message());
+                    showToast(true, "Se ha producido un error al intentar comprar", response.message());
                 }else {
                     showToast(false, "Se ha realizado la compra con éxito", null);
                     changeFragmentToProfile();
@@ -697,8 +712,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call call, Throwable t) {
-                showToast(true, "Se ha producido al intentar comprar", t.getMessage());
+            public void onFailure(Call<Object> call, Throwable t) {
+                showToast(true, "Se ha producido un error al intentar comprar", t.getMessage());
                 nDialog.hide();
             }
         });

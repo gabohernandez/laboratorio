@@ -19,4 +19,9 @@ public class GeneralNode {
     public void setNode(Node node) {
         this.node = node;
     }
+
+    @Override
+    public String toString() {
+        return node.getName();
+    }
 }
