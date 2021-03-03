@@ -174,10 +174,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 showToast(true, "Se ha producido un error al buscar los productos", t.getMessage());
+                nDialog.hide();
             }
         });
     }
-                //TODO
+
     public void changeFragmentToSingleProduct(Long id){
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
@@ -208,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
                 showToast(true, "Se ha producido un error al buscar el producto", t.getMessage());
+                nDialog.hide();
             }
         });
     }
@@ -255,12 +257,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
                 showToast(true, "Se ha producido un error al buscar las categorias", t.getMessage());
+                nDialog.hide();
             }
         });
     }
 
     //CHECKOUT
-                //TODO
     public void changeFragmentToCheckout() {
 
     }
@@ -299,11 +301,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ReportPage> call, Throwable t) {
                 showToast(true, "Se ha producido un error al buscar las noticias", t.getMessage());
+                nDialog.hide();
             }
         });
     }
 
-                //TODO
     public void changeFragmentToSingleReport(Long id){
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
@@ -334,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Report> call, Throwable t) {
                 showToast(true, "Se ha producido un error al buscar la noticia", t.getMessage());
+                nDialog.hide();
             }
         });
     }
@@ -389,6 +392,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 showToast(true, "Se ha producido un error en el login", t.getMessage());
+                nDialog.hide();
             }
         });
     }
@@ -431,6 +435,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Producer> call, Throwable t) {
                 showToast(true, "Se ha producido al buscar al productor", t.getMessage());
+                nDialog.hide();
             }
         });
     }
@@ -468,6 +473,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Producer>> call, Throwable t) {
                 showToast(true, "Se ha producido al buscar los productores", t.getMessage());
+                nDialog.hide();
             }
         });
     }
