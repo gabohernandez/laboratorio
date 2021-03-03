@@ -640,7 +640,7 @@ public class MainActivity extends AppCompatActivity {
         this.findViewById(R.id.textView6).setVisibility(View.VISIBLE);
     }
 
-    public void nodeSelected(MenuItem menu){
+    public void nodeSelected(View menu){
         System.out.println(menu);
     }
 

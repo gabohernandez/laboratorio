@@ -44,17 +44,17 @@ public class CheckoutFragment extends Fragment {
         ListView list = (ListView) view.findViewById(R.id.nodeList);
         NodeAdapter adapter = new NodeAdapter(this.context, new ArrayList(general.getActiveNodes().stream().map(GeneralNode::getNode).collect(Collectors.toList())));
         list.setAdapter(adapter);
-        /*
+
         list.setOnItemClickListener( new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                ((NodeAdapter)adapterView.getAdapter()).nodes.forEach();
-                view.setBackgroundColor(Color.RED) ;
+                //((NodeAdapter)adapterView.getAdapter()).nodes.forEach();
+                //view.setBackgroundColor(Color.RED) ;
             }
         }) ;
 
-         */
+
 
         return view;
     }
