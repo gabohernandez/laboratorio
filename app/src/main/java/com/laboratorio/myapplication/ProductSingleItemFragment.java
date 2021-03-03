@@ -47,6 +47,7 @@ public class ProductSingleItemFragment extends Fragment {
         ((TextView)view.findViewById(R.id.producttitle)).setText(this.product.getTitle());
         ((TextView) view.findViewById(R.id.productDescription)).setText(this.product.getDescription());
         ((TextView)view.findViewById(R.id.productPrice)).setText(String.valueOf("$" + this.product.getPrice()));
+
         String s = "data:image/jpeg;base64,";
         byte[] decodedString = Base64.decode(this.product.getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
