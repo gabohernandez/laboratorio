@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +29,8 @@ public class CartFragment extends Fragment {
     private int mColumnCount = 1;
 
     public List<Product> products;
+
+    private Context context;
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -51,11 +55,11 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cart_product_item_list, container, false);
-
+        this.context = container.getContext();
         // Set the adapter
-        if (view instanceof RecyclerView) {
+       /* if (view instanceof RecyclerView) {*/
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = view.findViewById(R.id.list); //(RecyclerView) view;
             if (mColumnCount <= 1) {
                 LinearLayoutManager layout = new LinearLayoutManager(context);
                 recyclerView.setLayoutManager(layout);
@@ -67,7 +71,16 @@ public class CartFragment extends Fragment {
             }
 
             recyclerView.setAdapter(new MyCartRecyclerViewAdapter(products));
-        }
+        //}
+
+        Button finishBuyButton = view.findViewById(R.id.finishBuyButton);
+        finishBuyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (context instanceof MainActivity){
+                    ((MainActivity) context).buy();
+                }
+            }
+        });
         return view;
     }
 

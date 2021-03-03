@@ -565,4 +565,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void buy() {
+        System.out.print("as");
+    }
 }
