@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         if (f instanceof ProductFragment || f instanceof CartFragment){
             changeFragmentToCategory();
         }
-
     }
 
     public boolean onClick(MenuItem item) {
