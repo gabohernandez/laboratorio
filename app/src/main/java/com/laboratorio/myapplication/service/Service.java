@@ -1,6 +1,8 @@
 package com.laboratorio.myapplication.service;
 
 import com.laboratorio.myapplication.model.BodyLoginRequest;
+import com.laboratorio.myapplication.model.CartBodyRequest;
+import com.laboratorio.myapplication.model.CartGeneral;
 import com.laboratorio.myapplication.model.Category;
 import com.laboratorio.myapplication.model.General;
 import com.laboratorio.myapplication.model.LoginResponse;
@@ -57,4 +59,7 @@ public interface Service {
 
     @GET("/api/general/active")
     Call<General> getGeneralActive();
+
+    @POST("/api/cart")
+    Call saveCart(@Header("Authorization") String token, @Body CartBodyRequest body);
 }

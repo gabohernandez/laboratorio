@@ -19,9 +19,16 @@ import android.widget.Toast;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laboratorio.myapplication.model.BodyLoginRequest;
+import com.laboratorio.myapplication.model.CartBodyRequest;
+import com.laboratorio.myapplication.model.CartGeneral;
+import com.laboratorio.myapplication.model.CartNode;
+import com.laboratorio.myapplication.model.CartNodeDate;
+import com.laboratorio.myapplication.model.CartProduct;
+import com.laboratorio.myapplication.model.CartProductWrapper;
 import com.laboratorio.myapplication.model.Category;
 import com.laboratorio.myapplication.model.General;
 import com.laboratorio.myapplication.model.LoginResponse;
+import com.laboratorio.myapplication.model.Node;
 import com.laboratorio.myapplication.model.ReportPage;
 import com.laboratorio.myapplication.model.Producer;
 import com.laboratorio.myapplication.model.Product;
@@ -635,6 +642,67 @@ public class MainActivity extends AppCompatActivity {
 
     public void nodeSelected(MenuItem menu){
         System.out.println(menu);
+    }
+
+    public void buy(General general, Node nodeSelected, String medioPago){
+
+        nDialog.show();
+
+        CartBodyRequest body = new CartBodyRequest();
+
+        //Productos
+        List<CartProductWrapper> products = new ArrayList<>();
+        this.cartProducts.forEach((k,v) -> {
+            CartProduct cp = new CartProduct();
+            cp.setId(v.getId());
+            CartProductWrapper cpw = new CartProductWrapper();
+            cpw.setProduct(cp);
+            cpw.setQuantity(v.getCount());
+            products.add(cpw);
+        });
+        body.setCartProducts(products);
+
+        //General
+        CartGeneral cartGeneral = new CartGeneral();
+        cartGeneral.setId(general.getId());
+        body.setGeneral(cartGeneral);
+
+        //Node
+        CartNodeDate cnd = new CartNodeDate();
+        cnd.setId(general.getActiveNodes().stream().filter(gn -> gn.getNode().getId() == nodeSelected.getId()).findFirst().get().getId());
+        CartNode cn = new CartNode();
+        cn.setId(nodeSelected.getId());
+        cnd.setNode(cn);
+        body.setNodeDate(cnd);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.saveCart(loggedUser.getValue(), body).enqueue(new Callback() {
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                nDialog.hide();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido al intentar comprar", response.message());
+                }else {
+                    showToast(false, "Se ha realizado la compra con éxito", null);
+                    changeFragmentToProfile();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                showToast(true, "Se ha producido al intentar comprar", t.getMessage());
+                nDialog.hide();
+            }
+        });
+        this.invisibleTotal();
     }
 
 }

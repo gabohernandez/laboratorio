@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Node {
 
-    private Integer id;
+    private Long id;
     private Address address;
     private String description;
     private Boolean hasFridge;
@@ -13,11 +13,11 @@ public class Node {
     private List<Image> images;
     private boolean selected = false;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
