@@ -222,8 +222,24 @@ public class MainActivity extends AppCompatActivity {
         showToast(false, "Logout exitoso", null);
     }
 
-    public void changeFragmentToProfile(MenuItem item){
+    public void changeFragmentToProfile(MenuItem item) {
+        changeFragmentToProfile();
+    }
 
+    public void changeFragmentToProfile(){
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ProfileFragment cf = new ProfileFragment();
+        cf.user = this.loggedUser.getUser();
+        ft.replace(R.id.placeholder, cf);
+
+        //ft.add(R.id.placeholder,f);
+        ft.commit();
+        nDialog.hide();
+    }
+    public void changeFragmentToCategory(MenuItem item){
+        this.changeFragmentToCategory();
     }
 
     //CATEGORY
@@ -508,5 +524,45 @@ public class MainActivity extends AppCompatActivity {
     public void deleteProduct(Product product) {
         this.cartProducts.remove(product.getId());
         updateTotal();
+    }
+
+    public void updateProfile(String name, String lastName) {
+        if (name == null || name.isEmpty() || lastName == null || lastName.isEmpty()){
+            showToast(false, "Ingrese nombre y apellido", null);
+            return;
+        }
+
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        loggedUser.getUser().setFirstName(name);
+        loggedUser.getUser().setFirstName(lastName);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.updateProfile(loggedUser.getValue(), loggedUser.getUser(), loggedUser.getUser().getId()).enqueue(new Callback<User>() {
+
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                nDialog.hide();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido un al actualizar el perfil", response.message());
+                }else {
+                    showToast(false, "Perfil actualizado con éxito", null);
+                    loggedUser.setUser(response.body());
+                    changeFragmentToProfile();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                showToast(true, "Se ha producido un error al actualizar el perfil", t.getMessage());
+                nDialog.hide();
+            }
+        });
     }
 }

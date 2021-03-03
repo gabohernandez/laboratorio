@@ -15,7 +15,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface Service {
@@ -48,4 +50,7 @@ public interface Service {
 
     @POST("/api/token/generate-token")
     Call<LoginResponse> login(@Body BodyLoginRequest body);
+
+    @PUT("/api/user/{id}")
+    Call<User> updateProfile(@Header("Authorization") String token, @Body User body, @Path("id") Long id);
 }
