@@ -5,7 +5,7 @@ import java.util.List;
 public class Node {
 
     private Integer id;
-    private String address;
+    private Address address;
     private String description;
     private Boolean hasFridge;
     private String name;
@@ -20,11 +20,11 @@ public class Node {
         this.id = id;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

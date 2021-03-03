@@ -50,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nodeLabel"
         tools:context=".ProducerFragment"
-        tools:listitem="@layout/producer_item" />
+        tools:listitem="@layout/node" />
 
     <TextView
         android:id="@+id/paymentLabel"

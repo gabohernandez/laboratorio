@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laboratorio.myapplication.model.BodyLoginRequest;
 import com.laboratorio.myapplication.model.Category;
+import com.laboratorio.myapplication.model.General;
 import com.laboratorio.myapplication.model.LoginResponse;
 import com.laboratorio.myapplication.model.ReportPage;
 import com.laboratorio.myapplication.model.Producer;
@@ -512,13 +513,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateTotal() {
+        BigDecimal total = getTotal();
+
+        TextView totalText = (TextView) findViewById(R.id.valuePrice);
+        totalText.setText(total.toString());
+    }
+
+    public BigDecimal getTotal() {
         BigDecimal total = BigDecimal.ZERO;
         for (Product p: cartProducts.values()){
             total = total.add(new BigDecimal(p.getCount()).multiply(p.getPrice()));
         }
-
-        TextView totalText = (TextView) findViewById(R.id.valuePrice);
-        totalText.setText(total.toString());
+        return total;
     }
 
     public void deleteProduct(Product product) {
@@ -566,7 +572,39 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void buy() {
-        System.out.print("as");
+    public void showLastStep() {
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/general/active/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.getGeneralActive().enqueue(new Callback<General>() {
+            @Override
+            public void onResponse(Call<General> call, Response<General> response) {
+                if (response.code() != 200) {
+                    showToast(true, "Se ha producido al buscar los nodos activos", response.message());
+                } else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    CheckoutFragment pf = new CheckoutFragment();
+                    pf.total = getTotal();
+                    pf.general = response.body();
+                    //pf.products = response.body();
+                    ft.replace(R.id.placeholder, pf);
+                    //ft.add(R.id.placeholder,pf);
+                    ft.commit();
+                }
+                nDialog.hide();
+            }
+            @Override
+            public void onFailure(Call<General> call, Throwable t) {
+                showToast(true, "Se ha producido al buscar los nodos activos", t.getMessage());
+                nDialog.hide();
+            }
+        });
     }
 }

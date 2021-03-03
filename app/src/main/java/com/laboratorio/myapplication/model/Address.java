@@ -4,6 +4,7 @@ public class Address {
 
     private String street;
     private String number;
+    private String betweenStreets;
 
     public String getStreet() {
         return street;
@@ -19,5 +20,13 @@ public class Address {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getBetweenStreets() {
+        return betweenStreets;
+    }
+
+    public void setBetweenStreets(String betweenStreets) {
+        this.betweenStreets = betweenStreets;
     }
 }

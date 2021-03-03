@@ -2,6 +2,7 @@ package com.laboratorio.myapplication.service;
 
 import com.laboratorio.myapplication.model.BodyLoginRequest;
 import com.laboratorio.myapplication.model.Category;
+import com.laboratorio.myapplication.model.General;
 import com.laboratorio.myapplication.model.LoginResponse;
 import com.laboratorio.myapplication.model.Node;
 import com.laboratorio.myapplication.model.ReportPage;
@@ -53,4 +54,7 @@ public interface Service {
 
     @PUT("/api/user/{id}")
     Call<User> updateProfile(@Header("Authorization") String token, @Body User body, @Path("id") Long id);
+
+    @GET("/api/general/active")
+    Call<General> getGeneralActive();
 }
