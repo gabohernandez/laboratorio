@@ -48,6 +48,14 @@ public class MyReportRecyclerViewAdapter extends RecyclerView.Adapter<MyReportRe
         byte[] decodedString = Base64.decode(mValues.get(position).getImage().getValue(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
         holder.image.setImageBitmap(decodedByte);
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (context instanceof  MainActivity){
+                    ((MainActivity) context).changeFragmentToSingleReport(mValues.get(position).getId());
+                }
+            }
+        });
     }
 
     @Override
