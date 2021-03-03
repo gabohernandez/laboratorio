@@ -142,34 +142,38 @@ public class MainActivity extends AppCompatActivity {
         service.getProducts().enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ProductFragment pf = new ProductFragment();
-                List<Product> products = new ArrayList<>();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido un error al buscar los productos", response.message());
+                }else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ProductFragment pf = new ProductFragment();
+                    List<Product> products = new ArrayList<>();
 
-                for (Product product: response.body()){
-                    if (product.getCategories().stream().anyMatch(c -> c.getId().equals(categoryId))){
-                        products.add(product);
+                    for (Product product : response.body()) {
+                        if (product.getCategories().stream().anyMatch(c -> c.getId().equals(categoryId))) {
+                            products.add(product);
+                        }
                     }
-                }
-                for (Map.Entry<Long,Product> entry : cartProducts.entrySet()){
-                    Optional<Product> currentProd = products.stream().filter(p -> p.getId().equals(entry.getKey())).findAny();
-                    if (currentProd.isPresent()){
-                        currentProd.get().setCount(entry.getValue().getCount());
+                    for (Map.Entry<Long, Product> entry : cartProducts.entrySet()) {
+                        Optional<Product> currentProd = products.stream().filter(p -> p.getId().equals(entry.getKey())).findAny();
+                        if (currentProd.isPresent()) {
+                            currentProd.get().setCount(entry.getValue().getCount());
+                        }
                     }
-                }
 
-                pf.products = products;
-                //pf.products = response.body();
-                ft.replace(R.id.placeholder, pf);
-                //ft.add(R.id.placeholder,pf);
-                ft.commit();
+                    pf.products = products;
+                    //pf.products = response.body();
+                    ft.replace(R.id.placeholder, pf);
+                    //ft.add(R.id.placeholder,pf);
+                    ft.commit();
+                }
                 nDialog.hide();
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                System.out.println(t.getMessage());
+                showToast(true, "Se ha producido un error al buscar los productos", t.getMessage());
             }
         });
     }
@@ -187,20 +191,23 @@ public class MainActivity extends AppCompatActivity {
         service.getProduct(id).enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
-                nDialog.show();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ProductSingleItemFragment cf = new ProductSingleItemFragment();
-                cf.product = response.body();
-                ft.replace(R.id.placeholder, cf);
-                //ft.add(R.id.placeholder,f);
-                ft.commit();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido un error al buscar el producto", response.message());
+                }else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ProductSingleItemFragment cf = new ProductSingleItemFragment();
+                    cf.product = response.body();
+                    ft.replace(R.id.placeholder, cf);
+                    //ft.add(R.id.placeholder,f);
+                    ft.commit();
+                }
                 nDialog.hide();
             }
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-                System.out.println(t.getMessage());
+                showToast(true, "Se ha producido un error al buscar el producto", t.getMessage());
             }
         });
     }
@@ -210,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         mOptionsMenu.findItem(R.id.loginid).setVisible(true);
         mOptionsMenu.findItem(R.id.logoutid).setVisible(false);
         mOptionsMenu.findItem(R.id.perfilid).setVisible(false);
-        showToast(false, "Logout exitoso");
+        showToast(false, "Logout exitoso", null);
     }
 
     public void changeFragmentToProfile(MenuItem item){
@@ -231,19 +238,23 @@ public class MainActivity extends AppCompatActivity {
         service.getCategories().enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                CategoryFragment cf = new CategoryFragment();
-                cf.categories = response.body();
-                ft.replace(R.id.placeholder, cf);
-                // ft.add(R.id.placeholder,f);
-                ft.commit();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido un error al buscar las categorias", response.message());
+                }else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    CategoryFragment cf = new CategoryFragment();
+                    cf.categories = response.body();
+                    ft.replace(R.id.placeholder, cf);
+                    // ft.add(R.id.placeholder,f);
+                    ft.commit();
+                }
                 nDialog.hide();
             }
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                System.out.println(t.getMessage());
+                showToast(true, "Se ha producido un error al buscar las categorias", t.getMessage());
             }
         });
     }
@@ -268,22 +279,26 @@ public class MainActivity extends AppCompatActivity {
         service.getReports().enqueue(new Callback<ReportPage>() {
             @Override
             public void onResponse(Call<ReportPage> call, Response<ReportPage> response) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ReportFragment pf = new ReportFragment();
-                List<Report> reports = response.body().getPage();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido un error al buscar las noticias", response.message());
+                }else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ReportFragment pf = new ReportFragment();
+                    List<Report> reports = response.body().getPage();
 
-                pf.report = reports;
-                //pf.products = response.body();
-                ft.replace(R.id.placeholder, pf);
-                //ft.add(R.id.placeholder,pf);
-                ft.commit();
+                    pf.report = reports;
+                    //pf.products = response.body();
+                    ft.replace(R.id.placeholder, pf);
+                    //ft.add(R.id.placeholder,pf);
+                    ft.commit();
+                }
                 nDialog.hide();
             }
 
             @Override
             public void onFailure(Call<ReportPage> call, Throwable t) {
-                System.out.println(t.getMessage());
+                showToast(true, "Se ha producido un error al buscar las noticias", t.getMessage());
             }
         });
     }
@@ -302,20 +317,23 @@ public class MainActivity extends AppCompatActivity {
         service.getReport(id).enqueue(new Callback<Report>() {
             @Override
             public void onResponse(Call<Report> call, Response<Report> response) {
-                nDialog.show();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                SingleReportFragment cf = new SingleReportFragment();
-                cf.report = response.body();
-                ft.replace(R.id.placeholder, cf);
-                //ft.add(R.id.placeholder,f);
-                ft.commit();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido un error al buscar la noticia", response.message());
+                }else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    SingleReportFragment cf = new SingleReportFragment();
+                    cf.report = response.body();
+                    ft.replace(R.id.placeholder, cf);
+                    //ft.add(R.id.placeholder,f);
+                    ft.commit();
+                }
                 nDialog.hide();
             }
 
             @Override
             public void onFailure(Call<Report> call, Throwable t) {
-                System.out.println(t.getMessage());
+                showToast(true, "Se ha producido un error al buscar la noticia", t.getMessage());
             }
         });
     }
@@ -334,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
 
     public  void login(String user, String password){
         if (user == null || user.isEmpty() || password == null || password.isEmpty()){
-            showToast(false, "Ingrese usuario y contraseña");
+            showToast(false, "Ingrese usuario y contraseña", null);
             return;
         }
 
@@ -356,11 +374,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 nDialog.hide();
-
                 if (response.code() != 200){
-                    showToast(true, response.message());
+                    showToast(true, "Se ha producido un error en el login", response.message());
                 }else {
-                    showToast(false, "Login exitoso");
+                    showToast(false, "Login exitoso", null);
                     loggedUser = response.body();
                     mOptionsMenu.findItem(R.id.loginid).setVisible(false);
                     mOptionsMenu.findItem(R.id.logoutid).setVisible(true);
@@ -371,20 +388,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                showToast(true, t.getMessage());
+                showToast(true, "Se ha producido un error en el login", t.getMessage());
             }
         });
     }
 
-    public void showToast(boolean error, String message){
+    public void showToast(boolean error, String message, String messageException){
         if (error) {
-            message = message != null && !message.isEmpty() ? ": " + message : "";
+            messageException = messageException != null && !messageException.isEmpty() ? ": " + messageException : "";
         }
-        Toast.makeText(getApplicationContext(),error? "Se ha producido un error" + message : message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),error?  message + messageException : message,Toast.LENGTH_SHORT).show();
     }
 
     //PRODUCER
-                //TODO
     public void changeFragmentToSingleProducer(Long id){
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
@@ -398,20 +414,23 @@ public class MainActivity extends AppCompatActivity {
         service.getProducer(id).enqueue(new Callback<Producer>() {
             @Override
             public void onResponse(Call<Producer> call, Response<Producer> response) {
-                nDialog.show();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ProducerSingleFragment cf = new ProducerSingleFragment();
-                cf.producer = response.body();
-                ft.replace(R.id.placeholder, cf);
-                //ft.add(R.id.placeholder,f);
-                ft.commit();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido al buscar al productor", response.message());
+                }else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ProducerSingleFragment cf = new ProducerSingleFragment();
+                    cf.producer = response.body();
+                    ft.replace(R.id.placeholder, cf);
+                    //ft.add(R.id.placeholder,f);
+                    ft.commit();
+                }
                 nDialog.hide();
             }
 
             @Override
             public void onFailure(Call<Producer> call, Throwable t) {
-                System.out.println(t.getMessage());
+                showToast(true, "Se ha producido al buscar al productor", t.getMessage());
             }
         });
     }
@@ -429,22 +448,26 @@ public class MainActivity extends AppCompatActivity {
         service.getProducers().enqueue(new Callback<List<Producer>>() {
             @Override
             public void onResponse(Call<List<Producer>> call, Response<List<Producer>> response) {
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ProducerFragment pf = new ProducerFragment();
-                List<Producer> producers = new ArrayList<>();
+                if (response.code() != 200){
+                    showToast(true, "Se ha producido al buscar los productores", response.message());
+                }else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ProducerFragment pf = new ProducerFragment();
+                    List<Producer> producers = new ArrayList<>();
 
-                pf.producers = response.body();
-                //pf.products = response.body();
-                ft.replace(R.id.placeholder, pf);
-                //ft.add(R.id.placeholder,pf);
-                ft.commit();
+                    pf.producers = response.body();
+                    //pf.products = response.body();
+                    ft.replace(R.id.placeholder, pf);
+                    //ft.add(R.id.placeholder,pf);
+                    ft.commit();
+                }
                 nDialog.hide();
             }
 
             @Override
             public void onFailure(Call<List<Producer>> call, Throwable t) {
-                System.out.println(t.getMessage());
+                showToast(true, "Se ha producido al buscar los productores", t.getMessage());
             }
         });
     }
