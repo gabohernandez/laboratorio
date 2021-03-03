@@ -74,6 +74,14 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
                 }
             }
         });
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (context instanceof  MainActivity){
+                    ((MainActivity) context).changeFragmentToSingleProduct(mValues.get(position).getId());
+                }
+            }
+        });
     }
 
     @Override

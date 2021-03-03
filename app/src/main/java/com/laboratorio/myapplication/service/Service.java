@@ -16,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface Service {
 
@@ -32,8 +33,8 @@ public interface Service {
     Call<Report> getReport();
 
     //TODO: Chequear
-    @GET("/api/product/{id}")
-    Call<Product> getProduct();
+    @GET("api/product/{id}")
+    Call<Product> getProduct(@Path("id") Long id);
 
     @GET("/api/producer")
     Call<List<Producer>> getProducers();
