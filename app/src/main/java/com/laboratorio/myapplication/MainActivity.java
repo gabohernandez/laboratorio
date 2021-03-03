@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         CartFragment cf = new CartFragment();
         cf.products = this.cartProducts.values().stream().collect(Collectors.toList());
         ft.replace(R.id.placeholder, cf);
+        this.visibleTotal();
         //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.visibleTotal();
     }
 
     public void changeFragmentToSingleProduct(Long id){
@@ -213,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.invisibleTotal();
     }
 
     public void logout(MenuItem item){
@@ -224,7 +227,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeFragmentToProfile(MenuItem item) {
+
         changeFragmentToProfile();
+
     }
 
     public void changeFragmentToProfile(){
@@ -234,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         ProfileFragment cf = new ProfileFragment();
         cf.user = this.loggedUser.getUser();
         ft.replace(R.id.placeholder, cf);
-
+        this.invisibleTotal();
         //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();
@@ -277,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.invisibleTotal();
     }
 
     //CHECKOUT
@@ -321,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.invisibleTotal();
     }
 
     public void changeFragmentToSingleReport(Long id){
@@ -356,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.invisibleTotal();
     }
 
     //LOGIN
@@ -366,6 +374,7 @@ public class MainActivity extends AppCompatActivity {
         LoginFragment cf = new LoginFragment();
         ft.replace(R.id.placeholder, cf);
         //ft.add(R.id.placeholder,f);
+        this.invisibleTotal();
         ft.commit();
         nDialog.hide();
     }
@@ -412,6 +421,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.invisibleTotal();
     }
 
     public void showToast(boolean error, String message, String messageException){
@@ -455,6 +465,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.invisibleTotal();
     }
 
     public void changeFragmentToProducers(MenuItem item){
@@ -493,6 +504,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.invisibleTotal();
     }
 
     //ABOUT US
@@ -502,6 +514,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         AboutUsFragment cf = new AboutUsFragment();
         ft.replace(R.id.placeholder, cf);
+        this.invisibleTotal();
         //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();
@@ -570,6 +583,7 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+        this.invisibleTotal();
     }
 
     public void showLastStep() {
@@ -606,5 +620,15 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+    }
+
+    public void invisibleTotal(){
+        this.findViewById(R.id.valuePrice).setVisibility(View.INVISIBLE);
+        this.findViewById(R.id.textView6).setVisibility(View.INVISIBLE);
+    }
+
+    public void visibleTotal(){
+        this.findViewById(R.id.valuePrice).setVisibility(View.VISIBLE);
+        this.findViewById(R.id.textView6).setVisibility(View.VISIBLE);
     }
 }

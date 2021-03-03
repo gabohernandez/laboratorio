@@ -27,7 +27,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/userLastName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/nameUser"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
@@ -39,6 +39,7 @@
         android:layout_marginEnd="92dp"
         android:layout_marginBottom="8dp"
         android:editable="true"
+        android:singleLine="false"
         android:text="userLastName"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
@@ -158,11 +159,13 @@
 
     <TextView
         android:id="@+id/nameUser"
-        android:layout_width="54dp"
-        android:layout_height="25dp"
+        android:layout_width="68dp"
+        android:layout_height="35dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="Nombre:"
+        android:textAlignment="viewStart"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/lastnameUser"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,11 +173,13 @@
 
     <TextView
         android:id="@+id/lastnameUser"
-        android:layout_width="59dp"
-        android:layout_height="24dp"
+        android:layout_width="65dp"
+        android:layout_height="41dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="Apellido:"
+        android:textAlignment="viewStart"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameUser" />
