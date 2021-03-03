@@ -172,7 +172,34 @@ public class MainActivity extends AppCompatActivity {
     }
                 //TODO
     public void changeFragmentToSingleProduct(){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        String url = "http://ec2-3-227-239-131.compute-1.amazonaws.com/api/product/" + R.id.placeholder + "/";
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url)
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
 
+        Service service = retrofit.create(Service.class);
+
+        service.getProduct().enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                nDialog.show();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ProductSingleItemFragment cf = new ProductSingleItemFragment();
+                cf.product = this.call;
+                ft.replace(R.id.placeholder, cf);
+                //ft.add(R.id.placeholder,f);
+                ft.commit();
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
     public void logout(MenuItem item){
