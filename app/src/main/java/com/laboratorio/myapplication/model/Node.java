@@ -11,6 +11,7 @@ public class Node {
     private String name;
     private String phone;
     private List<Image> images;
+    private boolean selected = false;
 
     public Integer getId() {
         return id;
@@ -66,5 +67,13 @@ public class Node {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

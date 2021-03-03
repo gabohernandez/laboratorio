@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -631,4 +632,9 @@ public class MainActivity extends AppCompatActivity {
         this.findViewById(R.id.valuePrice).setVisibility(View.VISIBLE);
         this.findViewById(R.id.textView6).setVisibility(View.VISIBLE);
     }
+
+    public void nodeSelected(MenuItem menu){
+        System.out.println(menu);
+    }
+
 }

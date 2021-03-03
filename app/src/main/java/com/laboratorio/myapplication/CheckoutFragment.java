@@ -2,12 +2,15 @@ package com.laboratorio.myapplication;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.laboratorio.myapplication.model.General;
 import com.laboratorio.myapplication.model.GeneralNode;
@@ -41,6 +44,17 @@ public class CheckoutFragment extends Fragment {
         ListView list = (ListView) view.findViewById(R.id.nodeList);
         NodeAdapter adapter = new NodeAdapter(this.context, new ArrayList(general.getActiveNodes().stream().map(GeneralNode::getNode).collect(Collectors.toList())));
         list.setAdapter(adapter);
+        /*
+        list.setOnItemClickListener( new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                ((NodeAdapter)adapterView.getAdapter()).nodes.forEach();
+                view.setBackgroundColor(Color.RED) ;
+            }
+        }) ;
+
+         */
 
         return view;
     }

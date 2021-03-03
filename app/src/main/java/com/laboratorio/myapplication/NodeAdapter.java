@@ -1,10 +1,12 @@
 package com.laboratorio.myapplication;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.laboratorio.myapplication.model.Node;
@@ -13,8 +15,11 @@ import java.util.ArrayList;
 
 public class NodeAdapter extends ArrayAdapter<Node> {
 
-    public NodeAdapter(Context context, ArrayList<Node> node) {
-        super(context, 0, node);
+    public ArrayList<Node> nodes;
+
+    public NodeAdapter(Context context, ArrayList<Node> nodes) {
+        super(context, 0, nodes);
+        this.nodes = nodes;
     }
 
 
@@ -38,12 +43,13 @@ public class NodeAdapter extends ArrayAdapter<Node> {
         // Populate the data into the template view using the data object
         tvName.setText(node.getName());
         tvAddress.setText(".hometown");
-
+        if (node.isSelected()){
+            convertView.setBackgroundColor(Color.RED);
+        }
         // Return the completed view to render on screen
 
         return convertView;
 
     }
-
 
 }
