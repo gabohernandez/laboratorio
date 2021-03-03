@@ -7,11 +7,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.method.Touch;
 import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -204,7 +206,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logout(MenuItem item){
-
+        this.loggedUser = null;
+        mOptionsMenu.findItem(R.id.loginid).setVisible(true);
+        mOptionsMenu.findItem(R.id.logoutid).setVisible(false);
+        mOptionsMenu.findItem(R.id.perfilid).setVisible(false);
+        showToast(false, "Logout exitoso");
     }
 
     public void changeFragmentToProfile(MenuItem item){
@@ -300,6 +306,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void login(String user, String password){
+        if (user == null || user.isEmpty() || password == null || password.isEmpty()){
+            showToast(false, "Ingrese usuario y contraseña");
+            return;
+        }
+
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -317,15 +328,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    System.out.println("Logout");
+                nDialog.hide();
+
+                if (response.code() != 200){
+                    showToast(true, response.message());
+                }else {
+                    showToast(false, "Login exitoso");
                     loggedUser = response.body();
+                    mOptionsMenu.findItem(R.id.loginid).setVisible(false);
+                    mOptionsMenu.findItem(R.id.logoutid).setVisible(true);
+                    mOptionsMenu.findItem(R.id.perfilid).setVisible(true);
+                    changeFragmentToCategory();
+                }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                System.out.println("Error");
+                showToast(true, t.getMessage());
             }
         });
+    }
+
+    public void showToast(boolean error, String message){
+        if (error) {
+            message = message != null && !message.isEmpty() ? ": " + message : "";
+        }
+        Toast.makeText(getApplicationContext(),error? "Se ha producido un error" + message : message,Toast.LENGTH_SHORT).show();
     }
 
     //PRODUCER

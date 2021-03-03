@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.laboratorio.myapplication.model.Report;
 
@@ -36,10 +37,10 @@ public class LoginFragment extends Fragment {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView name = (TextView) view.findViewById(R.id.emailEntry);
-                TextView passworrd = (TextView) view.findViewById(R.id.passwordEntry);
+                TextView password = (TextView) view.findViewById(R.id.passwordEntry);
 
                 if (context instanceof MainActivity){
-                    ((MainActivity) context).login(name.getText().toString(),passworrd.getText().toString());
+                    ((MainActivity) context).login(name.getText().toString(),password.getText().toString());
                 }
             }
             });
