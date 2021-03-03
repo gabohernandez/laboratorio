@@ -12,6 +12,7 @@ public class Product {
     private List<Image> images;
     private List<Category> categories;
     private BigDecimal price;
+    private Integer stock;
     private int count = 0;
 
     public Long getId() {
@@ -68,5 +69,13 @@ public class Product {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }

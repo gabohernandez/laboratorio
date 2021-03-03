@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.laboratorio.myapplication.dummy.DummyContent.DummyItem;
 import com.laboratorio.myapplication.model.Cart;
@@ -56,6 +57,10 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
 
         holder.buttonPlus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (mValues.get(position).getStock() == Integer.valueOf(holder.count.getText().toString())) {
+                    Toast.makeText(context, "No hay más stock disponible" ,Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 holder.count.setText(String.valueOf(Integer.valueOf(holder.count.getText().toString()) + 1));
                 mValues.get(position).setCount(Integer.valueOf(holder.count.getText().toString()));
                 if (context instanceof MainActivity){

@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     List<Product> products = new ArrayList<>();
 
                     for (Product product : response.body()) {
-                        if (product.getCategories().stream().anyMatch(c -> c.getId().equals(categoryId))) {
+                        if (product.getCategories().stream().anyMatch(c -> c.getId().equals(categoryId)) && (product.getStock() > 0)) {
                             products.add(product);
                         }
                     }
@@ -707,7 +707,9 @@ public class MainActivity extends AppCompatActivity {
                     showToast(true, "Se ha producido un error al intentar comprar", response.message());
                 }else {
                     showToast(false, "Se ha realizado la compra con éxito", null);
-                    changeFragmentToProfile();
+                    changeFragmentToCategory();
+                    cartProducts = new HashMap<>();
+                    ((TextView) findViewById(R.id.valuePrice)).setText("0.00");
                 }
             }
 
