@@ -33,7 +33,7 @@ public interface Service {
     Call<Report> getReport(@Path("id") Long id);
 
     //TODO: Chequear
-    @GET("api/product/{id}")
+    @GET("/api/product/{id}")
     Call<Product> getProduct(@Path("id") Long id);
 
     @GET("/api/producer")

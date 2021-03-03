@@ -40,10 +40,12 @@ public class ProducerSingleFragment extends Fragment {
         ((TextView) view.findViewById(R.id.producerPhone)).setText((this.producer.getPhone()));
         ((TextView) view.findViewById(R.id.producerEmail)).setText((this.producer.getPhone()));
         ((TextView) view.findViewById(R.id.producerOrigin)).setText((this.producer.getOrigin()));
-        String s = "data:image/jpeg;base64,";
-        byte[] decodedString = Base64.decode(this.producer.getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
-        ((ImageView)view.findViewById(R.id.producerImage)).setImageBitmap(decodedByte);
+        if (this.producer.getImages().size() > 0) {
+            String s = "data:image/jpeg;base64,";
+            byte[] decodedString = Base64.decode(this.producer.getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ((ImageView) view.findViewById(R.id.imageView3)).setImageBitmap(decodedByte);
+        }
         return view;
     }
 
