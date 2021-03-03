@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         cf.products = this.cartProducts.values().stream().collect(Collectors.toList());
         ft.replace(R.id.placeholder, cf);
         this.visibleTotal();
+
         //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();

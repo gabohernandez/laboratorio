@@ -13,13 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/ambar"
+        android:background="@color/verdeClaro"
         android:padding="2dp"
         android:shadowColor="#FFFFFF"
         android:text="0.00"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -28,13 +28,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@color/ambar"
+        android:background="@color/verdeClaro"
         android:padding="2dp"
         android:shadowColor="#FFFFFF"
         android:text="Total: $ "
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/valuePrice" />
 

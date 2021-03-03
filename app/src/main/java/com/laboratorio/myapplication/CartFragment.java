@@ -81,6 +81,11 @@ public class CartFragment extends Fragment {
                 }
             }
         });
+        if (this.products.isEmpty()){
+            finishBuyButton.setVisibility(View.GONE);
+        } else {
+            finishBuyButton.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 

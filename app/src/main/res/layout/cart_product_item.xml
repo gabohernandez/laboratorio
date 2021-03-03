@@ -87,10 +87,10 @@
 
     <Button
         android:id="@+id/buttonPlus"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="25dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
-        android:background="@color/design_default_color_error"
         android:padding="0dp"
         android:paddingStart="0dp"
         android:paddingLeft="0dp"
@@ -99,6 +99,7 @@
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
         android:text="X"
+        app:backgroundTint="@color/design_default_color_error"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

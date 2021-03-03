@@ -61,10 +61,11 @@
 
     <Button
         android:id="@+id/buttonPlus"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="25dp"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/verde"
+        app:backgroundTint="@color/verde"
         android:padding="0dp"
         android:paddingStart="0dp"
         android:paddingLeft="0dp"
@@ -79,12 +80,14 @@
 
     <Button
         android:id="@+id/buttonSubstract"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="25dp"
         android:layout_height="30dp"
+
         android:layout_marginEnd="8dp"
-        android:background="@color/naranja"
         android:padding="0dp"
         android:text="-"
+        app:backgroundTint="@color/naranja"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
