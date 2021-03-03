@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.placeholder, cf);
         this.visibleTotal();
 
-        //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();
     }
@@ -155,28 +154,32 @@ public class MainActivity extends AppCompatActivity {
                 if (response.code() != 200){
                     showToast(true, "Se ha producido un error al buscar los productos", response.message());
                 }else {
-                    FragmentManager fm = getFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ProductFragment pf = new ProductFragment();
-                    List<Product> products = new ArrayList<>();
+                        FragmentManager fm = getFragmentManager();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ProductFragment pf = new ProductFragment();
+                        List<Product> products = new ArrayList<>();
 
-                    for (Product product : response.body()) {
-                        if (product.getCategories().stream().anyMatch(c -> c.getId().equals(categoryId)) && (product.getStock() > 0)) {
-                            products.add(product);
+                        for (Product product : response.body()) {
+                            if (product.getCategories().stream().anyMatch(c -> c.getId().equals(categoryId)) && (product.getStock() > 0)) {
+                                products.add(product);
+                            }
                         }
-                    }
-                    for (Map.Entry<Long, Product> entry : cartProducts.entrySet()) {
-                        Optional<Product> currentProd = products.stream().filter(p -> p.getId().equals(entry.getKey())).findAny();
-                        if (currentProd.isPresent()) {
-                            currentProd.get().setCount(entry.getValue().getCount());
+                        for (Map.Entry<Long, Product> entry : cartProducts.entrySet()) {
+                            Optional<Product> currentProd = products.stream().filter(p -> p.getId().equals(entry.getKey())).findAny();
+                            if (currentProd.isPresent()) {
+                                currentProd.get().setCount(entry.getValue().getCount());
+                            }
                         }
-                    }
+                        if (products.size() > 0) {
+                            pf.products = products;
+                            //pf.products = response.body();
+                            ft.replace(R.id.placeholder, pf);
+                            //ft.add(R.id.placeholder,pf);
+                            ft.commit();
+                        } else {
+                            showToast(false, "Esta categoria no cuenta con productos con stock disponible", null);
+                        }
 
-                    pf.products = products;
-                    //pf.products = response.body();
-                    ft.replace(R.id.placeholder, pf);
-                    //ft.add(R.id.placeholder,pf);
-                    ft.commit();
                 }
                 nDialog.hide();
             }
