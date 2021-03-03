@@ -30,7 +30,7 @@ public interface Service {
     Call<ReportPage> getReports();
 
     @GET("/api/news/{id}")
-    Call<Report> getReport();
+    Call<Report> getReport(@Path("id") Long id);
 
     //TODO: Chequear
     @GET("api/product/{id}")
@@ -41,7 +41,7 @@ public interface Service {
 
     //TODO: Chequear
     @GET("/api/producer/{id}")
-    Call<Producer> getProducer();
+    Call<Producer> getProducer(@Path("id") Long id);
 
     @GET("/api/node")
     Call<List<Node>> getNodes();

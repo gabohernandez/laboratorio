@@ -289,8 +289,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
                 //TODO
-    public void changeFragmenteToSingleReport(){
+    public void changeFragmentToSingleReport(Long id){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        String url = "http://ec2-3-227-239-131.compute-1.amazonaws.com";
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url)
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
 
+        Service service = retrofit.create(Service.class);
+
+        service.getReport(id).enqueue(new Callback<Report>() {
+            @Override
+            public void onResponse(Call<Report> call, Response<Report> response) {
+                nDialog.show();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                SingleReportFragment cf = new SingleReportFragment();
+                cf.report = response.body();
+                ft.replace(R.id.placeholder, cf);
+                //ft.add(R.id.placeholder,f);
+                ft.commit();
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<Report> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
     //LOGIN
@@ -358,8 +385,35 @@ public class MainActivity extends AppCompatActivity {
 
     //PRODUCER
                 //TODO
-    public void changeFragmentToSingleProducer(){
+    public void changeFragmentToSingleProducer(Long id){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        String url = "http://ec2-3-227-239-131.compute-1.amazonaws.com";
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url)
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
 
+        Service service = retrofit.create(Service.class);
+
+        service.getProducer(id).enqueue(new Callback<Producer>() {
+            @Override
+            public void onResponse(Call<Producer> call, Response<Producer> response) {
+                nDialog.show();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ProducerSingleFragment cf = new ProducerSingleFragment();
+                cf.producer = response.body();
+                ft.replace(R.id.placeholder, cf);
+                //ft.add(R.id.placeholder,f);
+                ft.commit();
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<Producer> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
     public void changeFragmentToProducers(MenuItem item){

@@ -1,5 +1,6 @@
 package com.laboratorio.myapplication;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,10 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.laboratorio.myapplication.model.Product;
 import com.laboratorio.myapplication.model.Report;
 
 public class SingleReportFragment extends Fragment {
