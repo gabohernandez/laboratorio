@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
     private LoginResponse loggedUser;
 
+    private Menu mOptionsMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +72,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setSubtitle("Economía Social Solidaria");
         toolbar.setSubtitleTextColor(Color.WHITE);
         toolbar.setTitleTextColor(Color.WHITE);
-
-        //toolbar.findViewById(R.id.logoutid);
-
-     //   findViewById(R.id.logoutid).setVisibility(View.INVISIBLE);
 
         nDialog =  new ProgressDialog(this);
         nDialog.setMessage("Loading..");
@@ -88,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar, menu);
+        this.mOptionsMenu = menu;
+        menu.findItem(R.id.logoutid).setVisible(false);
+        menu.findItem(R.id.perfilid).setVisible(false);
         return true;
     }
 
