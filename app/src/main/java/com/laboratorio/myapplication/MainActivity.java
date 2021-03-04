@@ -725,4 +725,27 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
+    public void changeFragmentToRegister() {
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        RegisterFragment cf = new RegisterFragment();
+        ft.replace(R.id.placeholder, cf);
+        //ft.add(R.id.placeholder,f);
+        this.invisibleTotal();
+        ft.commit();
+        nDialog.hide();
+    }
+
+    public void changeFragmentToAddress() {
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        AddressFragment cf = new AddressFragment();
+        ft.replace(R.id.placeholder, cf);
+        //ft.add(R.id.placeholder,f);
+        this.invisibleTotal();
+        ft.commit();
+        nDialog.hide();
+    }
 }

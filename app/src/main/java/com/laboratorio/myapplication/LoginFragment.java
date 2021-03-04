@@ -18,6 +18,7 @@ public class LoginFragment extends Fragment {
 
     private Context context;
     public Button buttonDelete;
+    public Button buttonRegister;
 
     public LoginFragment() {
     }
@@ -34,6 +35,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.login, container, false);
         this.context = container.getContext();
         buttonDelete = view.findViewById(R.id.loginbutton);
+        buttonRegister = view.findViewById(R.id.registerButton);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView name = (TextView) view.findViewById(R.id.emailEntry);
@@ -44,6 +46,12 @@ public class LoginFragment extends Fragment {
                 }
             }
             });
+        buttonRegister.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) context).changeFragmentToRegister();
+            }
+        });
             return view;
     }
 }

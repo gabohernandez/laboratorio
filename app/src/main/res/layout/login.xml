@@ -61,8 +61,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/verde"
         android:text="Ingresar"
+        app:backgroundTint="@color/verde"
         app:layout_constraintBottom_toTopOf="@+id/forgotpasswordbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -74,13 +74,24 @@
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="197dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/verdeClaro"
         android:text="Olvidé mi contraseña"
         android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="@color/verde"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginbutton" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Registrarse"
+        app:backgroundTint="@color/verde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forgotpasswordbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
