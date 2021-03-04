@@ -573,7 +573,7 @@ public class MainActivity extends AppCompatActivity {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         loggedUser.getUser().setFirstName(name);
-        loggedUser.getUser().setFirstName(lastName);
+        loggedUser.getUser().setLastName(lastName);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com")
                 .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
