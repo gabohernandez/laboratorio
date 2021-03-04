@@ -5,29 +5,33 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
+    private String encryptedPassword;
     private String phone;
     private String image;
     private String age;
     private Address address;
 
     public User(String name, String lastName, String email, String phone, String age, String password) {
-        this.firstName = firstName;
+        this.firstName = name;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.image = null;
         this.age = age;
         this.address = new Address();
-        this.password = password;
+        this.encryptedPassword = password;
     }
 
-    public String getPassword() {
-        return password;
+    public User(){
+
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
     }
 
     public Long getId() {

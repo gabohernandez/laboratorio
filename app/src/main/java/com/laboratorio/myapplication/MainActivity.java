@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
     private LoginResponse loggedUser;
 
     private Menu mOptionsMenu;
-    
-    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -742,10 +740,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeFragmentToAddress(User usuario) {
         nDialog.show();
-        user = usuario;
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         AddressFragment cf = new AddressFragment();
+        cf.usuario = usuario;
         ft.replace(R.id.placeholder, cf);
         //ft.add(R.id.placeholder,f);
         this.invisibleTotal();
@@ -753,12 +751,9 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
-    public void saveAddress(Address direccion) {
-        user.setAddress(direccion);
-    }
 
-    public void saveUser() {
-
+    public void saveUser(User user) {
+        nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -767,27 +762,24 @@ public class MainActivity extends AppCompatActivity {
 
         Service service = retrofit.create(Service.class);
 
-        service.saveUser("Bearer " + loggedUser.getValue(), user).enqueue(new Callback<Object>() {
+        service.saveUser(user).enqueue(new Callback<Object>() {
 
         @Override
         public void onResponse(Call<Object> call, Response<Object> response) {
             nDialog.hide();
             if (response.code() != 200){
-                showToast(true, "Se ha producido un error al intentar comprar", response.message());
+                showToast(true, "Se ha producido un error al intentar registrar al usuario", response.message());
             }else {
-                showToast(false, "Se ha realizado la compra con éxito", null);
+                showToast(false, "Se ha realizado el registro con éxito", null);
                 changeFragmentToCategory();
-                cartProducts = new HashMap<>();
-                ((TextView) findViewById(R.id.valuePrice)).setText("0.00");
             }
         }
 
         @Override
         public void onFailure(Call<Object> call, Throwable t) {
-            showToast(true, "Se ha producido un error al intentar comprar", t.getMessage());
+            showToast(true, "Se ha producido un error al intentar registrar el usuario", t.getMessage());
             nDialog.hide();
         }
         });
-        this.invisibleTotal();
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.laboratorio.myapplication.model.User;
 
@@ -31,18 +32,17 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.register, container, false);
         this.context = container.getContext();
 
-        String name = view.findViewById(R.id.editTextTextPersonName).toString();
-        String lastName = view.findViewById(R.id.editTextTextPersonName2).toString();
-        String email = view.findViewById(R.id.editTextTextEmailAddress).toString();
-        String age = view.findViewById(R.id.editTextAge).toString();
-        String phone = view.findViewById(R.id.editTextPhone).toString();
-        String password = view.findViewById(R.id.editTextTextPassword).toString();
-        usuario = new User(name, lastName, email, phone, age, password);
-
         addressButton =  view.findViewById(R.id.addressButton);
         addressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = ((TextView) view.findViewById(R.id.editTextTextPersonName)).getText().toString();
+                String lastName = ((TextView)view.findViewById(R.id.editTextTextPersonName2)).getText().toString();
+                String email = ((TextView)view.findViewById(R.id.editTextTextEmailAddress)).getText().toString();
+                String age = ((TextView)view.findViewById(R.id.editTextAge)).getText().toString();
+                String phone = ((TextView)view.findViewById(R.id.editTextPhone)).getText().toString();
+                String password = ((TextView)view.findViewById(R.id.editTextTextPassword)).getText().toString();
+                usuario = new User(name, lastName, email, phone, age, password);
                 ((MainActivity) context).changeFragmentToAddress(usuario);
             }
         });
