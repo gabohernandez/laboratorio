@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.laboratorio.myapplication.model.Address;
+
 public class AddressFragment extends Fragment {
 
     private Context context;
@@ -28,13 +30,24 @@ public class AddressFragment extends Fragment {
         View view = inflater.inflate(R.layout.address, container, false);
         this.context = container.getContext();
 
-/*        finishButton =  view.findViewById(R.id.finishRegisterButton);
+        String calle = view.findViewById(R.id.editTextTextPersonName3).toString();
+        String entreCalles = view.findViewById(R.id.editTextTextPersonName5).toString();
+        String numero = view.findViewById(R.id.editTextTextPersonName4).toString();
+        String piso = view.findViewById(R.id.editTextTextPersonName6).toString();
+        String dpto = view.findViewById(R.id.editTextTextPersonName7).toString();
+        String descript = view.findViewById(R.id.editTextTextPersonName8).toString();
+
+        Address direccion = new Address(calle,entreCalles,numero,piso,dpto,descript);
+
+        finishButton =  view.findViewById(R.id.finishRegisterButton);
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((MainActivity) context).saveAddress(direccion);
+                ((MainActivity) context).saveUser();
+                ((MainActivity) context).changeFragmentToCategory();
             }
-        });*/
+        });
 
         return view;
     }

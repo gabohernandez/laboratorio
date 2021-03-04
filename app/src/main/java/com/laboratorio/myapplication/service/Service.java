@@ -62,4 +62,7 @@ public interface Service {
 
     @POST("/api/cart")
     Call<Object> saveCart(@Header("Authorization") String token, @Body CartBodyRequest body);
+
+    @POST("api/user")
+    Call<Object> saveUser(@Header("Authorization") String token, @Body User body);
 }

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.laboratorio.myapplication.model.Address;
 import com.laboratorio.myapplication.model.BodyLoginRequest;
 import com.laboratorio.myapplication.model.CartBodyRequest;
 import com.laboratorio.myapplication.model.CartGeneral;
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
     private LoginResponse loggedUser;
 
     private Menu mOptionsMenu;
+    
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -737,8 +740,9 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
-    public void changeFragmentToAddress() {
+    public void changeFragmentToAddress(User usuario) {
         nDialog.show();
+        user = usuario;
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         AddressFragment cf = new AddressFragment();
@@ -747,5 +751,43 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
         ft.commit();
         nDialog.hide();
+    }
+
+    public void saveAddress(Address direccion) {
+        user.setAddress(direccion);
+    }
+
+    public void saveUser() {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.saveUser("Bearer " + loggedUser.getValue(), user).enqueue(new Callback<Object>() {
+
+        @Override
+        public void onResponse(Call<Object> call, Response<Object> response) {
+            nDialog.hide();
+            if (response.code() != 200){
+                showToast(true, "Se ha producido un error al intentar comprar", response.message());
+            }else {
+                showToast(false, "Se ha realizado la compra con éxito", null);
+                changeFragmentToCategory();
+                cartProducts = new HashMap<>();
+                ((TextView) findViewById(R.id.valuePrice)).setText("0.00");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Object> call, Throwable t) {
+            showToast(true, "Se ha producido un error al intentar comprar", t.getMessage());
+            nDialog.hide();
+        }
+        });
+        this.invisibleTotal();
     }
 }

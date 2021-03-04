@@ -5,10 +5,30 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private String phone;
     private String image;
     private String age;
     private Address address;
+
+    public User(String name, String lastName, String email, String phone, String age, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.image = null;
+        this.age = age;
+        this.address = new Address();
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -65,7 +85,6 @@ public class User {
     public void setAge(String age) {
         this.age = age;
     }
-
 
     public Address getAddress() {
         return address;
