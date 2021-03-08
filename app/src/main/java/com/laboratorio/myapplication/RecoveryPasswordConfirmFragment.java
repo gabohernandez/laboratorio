@@ -36,7 +36,7 @@ public class RecoveryPasswordConfirmFragment extends Fragment {
             public void onClick(View v) {
                 if (context instanceof MainActivity){
                     String newPassword = ((TextView) view.findViewById(R.id.newPassword)).getText().toString();
-                    String confirmPassword = ((TextView) view.findViewById(R.id.newPasswordValidategit )).getText().toString();
+                    String confirmPassword = ((TextView) view.findViewById(R.id.newPasswordValidate )).getText().toString();
                     if (newPassword.equals(confirmPassword)) {
                         BodyRecoveryPasswordConfirm body = new BodyRecoveryPasswordConfirm();
                         body.setCode(((TextView) view.findViewById(R.id.codeEntry)).getText().toString());
