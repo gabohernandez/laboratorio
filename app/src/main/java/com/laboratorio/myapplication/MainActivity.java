@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.icu.text.CollationKey;
 import android.os.Bundle;
 import android.text.method.Touch;
 import android.view.MenuInflater;
@@ -20,6 +21,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laboratorio.myapplication.model.Address;
 import com.laboratorio.myapplication.model.BodyLoginRequest;
+import com.laboratorio.myapplication.model.BodyRecoveryPasswordConfirm;
+import com.laboratorio.myapplication.model.BodyRecoveryPasswordEmail;
 import com.laboratorio.myapplication.model.CartBodyRequest;
 import com.laboratorio.myapplication.model.CartGeneral;
 import com.laboratorio.myapplication.model.CartNode;
@@ -767,7 +770,7 @@ public class MainActivity extends AppCompatActivity {
         nDialog.show();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        RecoveryPasswordFragment cf = new RecoveryPasswordFragment();
+        RecoveryPasswordConfirmFragment cf = new RecoveryPasswordConfirmFragment();
         ft.replace(R.id.placeholder, cf);
         //ft.add(R.id.placeholder,f);
         this.invisibleTotal();
@@ -803,6 +806,68 @@ public class MainActivity extends AppCompatActivity {
             showToast(true, "Se ha producido un error al intentar registrar el usuario", t.getMessage());
             nDialog.hide();
         }
+        });
+    }
+
+    public void sendCodeToEmail(String email) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        BodyRecoveryPasswordEmail body = new BodyRecoveryPasswordEmail(email);
+
+        service.getCodeRecoveryPassword(body).enqueue(new Callback<Object>() {
+
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                nDialog.hide();
+                if (response.code() != 200) {
+                    showToast(true, "Se ha producido un error al intentar recuperar la contraseña", response.message());
+                } else {
+                    showToast(false, "Se ha enviado un código a su correo electróncio para restablecer la contraseña", null);
+                    changeFragmentToConfirmRecovery();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                showToast(true, "Se ha producido un error al intentar recuperar la contraseña", t.getMessage());
+                nDialog.hide();
+            }
+        });
+    }
+
+    public void changeFragmentToPasswordAndLogin(BodyRecoveryPasswordConfirm body) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+         service.changePassword(body).enqueue(new Callback<Object>() {
+
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                nDialog.hide();
+                if (response.code() != 200) {
+                    showToast(true, "Se ha producido un error al intentar generar la nueva contraseña", response.message());
+                } else {
+                    showToast(false, "Se ha modificado la contraseña correctamente", null);
+                    changeFragmentToLogin();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                showToast(true, "Se ha producido un error al intentar generar la nueva contraseña", t.getMessage());
+                nDialog.hide();
+            }
         });
     }
 }

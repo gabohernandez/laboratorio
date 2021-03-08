@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 public class RecoveryPasswordFragment extends Fragment {
     private Context context;
-    public Button confirmCode;
 
     public RecoveryPasswordFragment(){
 
@@ -25,14 +24,13 @@ public class RecoveryPasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login, container, false);
+        View view = inflater.inflate(R.layout.recovery_getcode, container, false);
         this.context = container.getContext();
-        confirmCode = view.findViewById(R.id.confirmEmail);
+        Button confirmCode = view.findViewById(R.id.confirmEmail);
         confirmCode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                TextView email = (TextView) view.findViewById(R.id.emailRecovery);
                 if (context instanceof MainActivity){
-                    ((MainActivity) context).changeFragmentToConfirmRecovery();
+                    ((MainActivity) context).sendCodeToEmail( ((TextView) view.findViewById(R.id.emailRecovery)).getText().toString() );
                 }
             }
         });

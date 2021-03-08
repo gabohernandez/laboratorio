@@ -1,6 +1,8 @@
 package com.laboratorio.myapplication.service;
 
 import com.laboratorio.myapplication.model.BodyLoginRequest;
+import com.laboratorio.myapplication.model.BodyRecoveryPasswordConfirm;
+import com.laboratorio.myapplication.model.BodyRecoveryPasswordEmail;
 import com.laboratorio.myapplication.model.CartBodyRequest;
 import com.laboratorio.myapplication.model.CartGeneral;
 import com.laboratorio.myapplication.model.Category;
@@ -65,4 +67,10 @@ public interface Service {
 
     @POST("api/user/signup")
     Call<Object> saveUser(@Body User body);
+
+    @POST("api/email/recovery")
+    Call<Object> getCodeRecoveryPassword(@Body BodyRecoveryPasswordEmail body);
+
+    @POST("api/email/recovery/confirm")
+    Call<Object> changePassword(@Body BodyRecoveryPasswordConfirm body);
 }
