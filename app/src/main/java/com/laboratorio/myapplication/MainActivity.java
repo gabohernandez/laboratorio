@@ -28,6 +28,7 @@ import com.laboratorio.myapplication.model.BodyRecoveryPasswordConfirm;
 import com.laboratorio.myapplication.model.BodyRecoveryPasswordEmail;
 import com.laboratorio.myapplication.model.CartBodyRequest;
 import com.laboratorio.myapplication.model.CartGeneral;
+import com.laboratorio.myapplication.model.CartHistory;
 import com.laboratorio.myapplication.model.CartNode;
 import com.laboratorio.myapplication.model.CartNodeDate;
 import com.laboratorio.myapplication.model.CartProduct;
@@ -867,5 +868,41 @@ public class MainActivity extends AppCompatActivity {
                 nDialog.hide();
             }
         });
+    }
+
+    public void changeFragmentToCartHistory(){
+        nDialog.show();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/category/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.getCartHistory().enqueue(new Callback<List<CartHistory>>() {
+            @Override
+            public void onResponse(Call<List<CartHistory>> call, Response<List<CartHistory>> response) {
+                if (response.code() != 200) {
+                    showToast(true, "Se ha producido un error al buscar el historial de pedidos", response.message());
+                } else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    CartHistoryFragment cf = new CartHistoryFragment();
+                    cf.cartHistories = response.body();
+                    ft.replace(R.id.placeholder, cf);
+                    // ft.add(R.id.placeholder,f);
+                    ft.commit();
+                }
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<List<CartHistory>> call, Throwable t) {
+                showToast(true, "Se ha producido un error al buscar el historial de pedidos", t.getMessage());
+                nDialog.hide();
+            }
+        });
+        this.invisibleTotal();
     }
 }

@@ -4,6 +4,7 @@ import com.laboratorio.myapplication.model.BodyLoginRequest;
 import com.laboratorio.myapplication.model.BodyRecoveryPasswordConfirm;
 import com.laboratorio.myapplication.model.BodyRecoveryPasswordEmail;
 import com.laboratorio.myapplication.model.CartBodyRequest;
+import com.laboratorio.myapplication.model.CartHistory;
 import com.laboratorio.myapplication.model.Category;
 import com.laboratorio.myapplication.model.General;
 import com.laboratorio.myapplication.model.LoginResponse;
@@ -72,4 +73,6 @@ public interface Service {
 
     @POST("api/email/recovery/confirm")
     Call<Object> changePassword(@Body BodyRecoveryPasswordConfirm body);
+
+    Call<List<CartHistory>> getCartHistory();
 }
