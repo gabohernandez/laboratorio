@@ -17,8 +17,9 @@ import java.util.List;
 public class LoginFragment extends Fragment {
 
     private Context context;
-    public Button buttonDelete;
+    public Button buttonLogin;
     public Button buttonRegister;
+    public Button buttonRecovery;
 
     public LoginFragment() {
     }
@@ -34,9 +35,10 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login, container, false);
         this.context = container.getContext();
-        buttonDelete = view.findViewById(R.id.loginbutton);
+        buttonLogin = view.findViewById(R.id.loginbutton);
+        buttonRecovery = view.findViewById(R.id.forgotpasswordbutton);
         buttonRegister = view.findViewById(R.id.registerButton);
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView name = (TextView) view.findViewById(R.id.emailEntry);
                 TextView password = (TextView) view.findViewById(R.id.passwordEntry);
@@ -50,6 +52,12 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) context).changeFragmentToRegister();
+            }
+        });
+        buttonRecovery.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) context).changeFragmentToRecovery();
             }
         });
             return view;

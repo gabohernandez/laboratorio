@@ -751,6 +751,29 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
+    public void changeFragmentToRecovery(){
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        RecoveryPasswordFragment cf = new RecoveryPasswordFragment();
+        ft.replace(R.id.placeholder, cf);
+        //ft.add(R.id.placeholder,f);
+        this.invisibleTotal();
+        ft.commit();
+        nDialog.hide();
+    }
+
+    public void changeFragmentToConfirmRecovery(){
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        RecoveryPasswordFragment cf = new RecoveryPasswordFragment();
+        ft.replace(R.id.placeholder, cf);
+        //ft.add(R.id.placeholder,f);
+        this.invisibleTotal();
+        ft.commit();
+        nDialog.hide();
+    }
 
     public void saveUser(User user) {
         nDialog.show();
