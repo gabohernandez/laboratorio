@@ -29,7 +29,8 @@ import java.util.Map;
 public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecyclerViewAdapter.ViewHolder> {
 
     private List<Product> mValues = new ArrayList<>();
-    private Map<Long, Product> cartProducts = new HashMap<>();;
+    private Map<Long, Product> cartProducts = new HashMap<>();
+    ;
     private Context context;
 
     public MyCartRecyclerViewAdapter(List<Product> items) {
@@ -52,7 +53,7 @@ public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecycl
         holder.price.setText(String.valueOf("$" + mValues.get(position).getPrice()));
         String s = "data:image/jpeg;base64,";
         byte[] decodedString = Base64.decode(mValues.get(position).getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         holder.image.setImageBitmap(decodedByte);
 
         holder.count.setText(String.valueOf(mValues.get(position).getCount()));
@@ -65,8 +66,8 @@ public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecycl
                 mValues.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, mValues.size());
-                if (context instanceof MainActivity){
-                   ((MainActivity) context).deleteProduct(p);
+                if (context instanceof MainActivity) {
+                    ((MainActivity) context).deleteProduct(p);
                 }
             }
         });
@@ -98,7 +99,7 @@ public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecycl
             subtotal = (TextView) view.findViewById(R.id.subtotal);
             image = (ImageView) view.findViewById(R.id.cartImageView);
             buttonDelete = (Button) view.findViewById(R.id.buttonPlus);
-         }
+        }
 
     }
 

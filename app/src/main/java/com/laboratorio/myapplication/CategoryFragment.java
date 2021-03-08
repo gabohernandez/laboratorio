@@ -3,15 +3,14 @@ package com.laboratorio.myapplication;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.laboratorio.myapplication.model.Category;
 
@@ -24,10 +23,9 @@ public class CategoryFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    public List<Category> categories;
     // TODO: Customize parameters
     private int mColumnCount = 1;
-
-    public List<Category> categories;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,7 +69,8 @@ public class CategoryFragment extends Fragment {
             } else {
                 GridLayoutManager layout = new GridLayoutManager(context, mColumnCount);
                 recyclerView.setLayoutManager(layout);
-                recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), layout.getOrientation()));            }
+                recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), layout.getOrientation()));
+            }
             recyclerView.setAdapter(new MyCategoryRecyclerViewAdapter(categories));
         }
         return view;

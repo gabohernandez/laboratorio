@@ -13,10 +13,10 @@ import com.laboratorio.myapplication.model.BodyRecoveryPasswordConfirm;
 
 public class RecoveryPasswordConfirmFragment extends Fragment {
 
-    private Context context;
     public Button confirmCode;
+    private Context context;
 
-    public RecoveryPasswordConfirmFragment(){
+    public RecoveryPasswordConfirmFragment() {
 
     }
 
@@ -34,17 +34,17 @@ public class RecoveryPasswordConfirmFragment extends Fragment {
         confirmCode = view.findViewById(R.id.confirmPasswordButton);
         confirmCode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (context instanceof MainActivity){
+                if (context instanceof MainActivity) {
                     String newPassword = ((TextView) view.findViewById(R.id.newPassword)).getText().toString();
-                    String confirmPassword = ((TextView) view.findViewById(R.id.newPasswordValidate )).getText().toString();
+                    String confirmPassword = ((TextView) view.findViewById(R.id.newPasswordValidate)).getText().toString();
                     if (newPassword.equals(confirmPassword)) {
                         BodyRecoveryPasswordConfirm body = new BodyRecoveryPasswordConfirm();
                         body.setCode(((TextView) view.findViewById(R.id.codeEntry)).getText().toString());
                         body.setEmail(confirmPassword);
                         body.setNewPassword(newPassword);
                         ((MainActivity) context).changeFragmentToPasswordAndLogin(body);
-                    } else{
-                        ((MainActivity)context).showToast(false, "Las contraseñas ingresadas no coinciden", null);
+                    } else {
+                        ((MainActivity) context).showToast(false, "Las contraseñas ingresadas no coinciden", null);
                     }
                 }
             }

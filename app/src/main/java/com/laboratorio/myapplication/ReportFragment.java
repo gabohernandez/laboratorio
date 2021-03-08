@@ -23,10 +23,9 @@ public class ReportFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    public List<Report> report;
     // TODO: Customize parameters
     private int mColumnCount = 1;
-
-    public List<Report> report;
 
     // TODO: Customize parameter initialization
 

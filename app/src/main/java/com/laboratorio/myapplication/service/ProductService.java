@@ -18,7 +18,7 @@ public class ProductService extends IntentService {
 
     private Service service;
 
-    public ProductService(){
+    public ProductService() {
         super("ProductService");
 
         ObjectMapper mapper = new ObjectMapper();
@@ -35,7 +35,7 @@ public class ProductService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         try {
             List<Product> products = service.getProducts().execute().body();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

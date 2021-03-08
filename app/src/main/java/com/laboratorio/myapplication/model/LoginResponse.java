@@ -2,7 +2,7 @@ package com.laboratorio.myapplication.model;
 
 public class LoginResponse {
 
-    private  String value;
+    private String value;
     private User user;
 
     public String getValue() {

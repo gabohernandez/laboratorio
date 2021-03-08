@@ -6,10 +6,11 @@ public class BodyRecoveryPasswordConfirm {
     private String newPassword;
     private String oldPassword;
 
-    public BodyRecoveryPasswordConfirm(){
+    public BodyRecoveryPasswordConfirm() {
 
     }
-    public BodyRecoveryPasswordConfirm(String email, String code, String newPassword, String oldPassword){
+
+    public BodyRecoveryPasswordConfirm(String email, String code, String newPassword, String oldPassword) {
         this.email = email;
         this.code = code;
         this.newPassword = newPassword;

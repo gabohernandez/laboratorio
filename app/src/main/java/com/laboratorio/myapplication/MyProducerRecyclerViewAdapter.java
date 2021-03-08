@@ -18,7 +18,7 @@ import com.laboratorio.myapplication.model.Producer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyProducerRecyclerViewAdapter extends RecyclerView.Adapter<MyProducerRecyclerViewAdapter.ViewHolder>{
+public class MyProducerRecyclerViewAdapter extends RecyclerView.Adapter<MyProducerRecyclerViewAdapter.ViewHolder> {
 
     private List<Producer> mValues = new ArrayList<>();
     private Context context;
@@ -50,7 +50,7 @@ public class MyProducerRecyclerViewAdapter extends RecyclerView.Adapter<MyProduc
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (context instanceof  MainActivity){
+                if (context instanceof MainActivity) {
                     ((MainActivity) context).changeFragmentToSingleProducer(mValues.get(position).getId());
                 }
             }

@@ -13,13 +13,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.laboratorio.myapplication.model.Product;
 import com.laboratorio.myapplication.model.User;
 
 public class ProfileFragment extends Fragment {
 
-    private Context context;
     public User user;
+    private Context context;
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -41,12 +40,12 @@ public class ProfileFragment extends Fragment {
         this.context = container.getContext();
 
         View view = inflater.inflate(R.layout.profile, container, false);
-        ((TextView)view.findViewById(R.id.userName)).setText(this.user.getFirstName());
-        ((TextView)view.findViewById(R.id.userLastName)).setText(this.user.getLastName());
+        ((TextView) view.findViewById(R.id.userName)).setText(this.user.getFirstName());
+        ((TextView) view.findViewById(R.id.userLastName)).setText(this.user.getLastName());
         ((TextView) view.findViewById(R.id.userEmail)).setText(this.user.getEmail());
         ((TextView) view.findViewById(R.id.userPhone)).setText(this.user.getPhone());
-        ((TextView) view.findViewById(R.id.userStreet)).setText(this.user.getAddress() != null ? this.user.getAddress().getStreet(): "");
-        ((TextView) view.findViewById(R.id.userNumber)).setText(this.user.getAddress() != null ? this.user.getAddress().getNumber(): "");
+        ((TextView) view.findViewById(R.id.userStreet)).setText(this.user.getAddress() != null ? this.user.getAddress().getStreet() : "");
+        ((TextView) view.findViewById(R.id.userNumber)).setText(this.user.getAddress() != null ? this.user.getAddress().getNumber() : "");
         ((TextView) view.findViewById(R.id.userAge)).setText(this.user.getAge());
 
         if (this.user.getImage() != null) {
@@ -62,8 +61,8 @@ public class ProfileFragment extends Fragment {
                 TextView name = (TextView) view.findViewById(R.id.userName);
                 TextView lastname = (TextView) view.findViewById(R.id.userLastName);
 
-                if (context instanceof MainActivity){
-                    ((MainActivity) context).updateProfile(name.getText().toString(),lastname.getText().toString());
+                if (context instanceof MainActivity) {
+                    ((MainActivity) context).updateProfile(name.getText().toString(), lastname.getText().toString());
                 }
             }
         });

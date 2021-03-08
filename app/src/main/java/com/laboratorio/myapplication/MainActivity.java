@@ -6,20 +6,23 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.icu.text.CollationKey;
 import android.os.Bundle;
-import android.text.method.Touch;
-import android.view.MenuInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.laboratorio.myapplication.model.Address;
 import com.laboratorio.myapplication.model.BodyLoginRequest;
 import com.laboratorio.myapplication.model.BodyRecoveryPasswordConfirm;
 import com.laboratorio.myapplication.model.BodyRecoveryPasswordEmail;
@@ -33,19 +36,12 @@ import com.laboratorio.myapplication.model.Category;
 import com.laboratorio.myapplication.model.General;
 import com.laboratorio.myapplication.model.LoginResponse;
 import com.laboratorio.myapplication.model.Node;
-import com.laboratorio.myapplication.model.ReportPage;
 import com.laboratorio.myapplication.model.Producer;
 import com.laboratorio.myapplication.model.Product;
 import com.laboratorio.myapplication.model.Report;
+import com.laboratorio.myapplication.model.ReportPage;
 import com.laboratorio.myapplication.model.User;
 import com.laboratorio.myapplication.service.Service;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -88,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setSubtitleTextColor(Color.WHITE);
         toolbar.setTitleTextColor(Color.WHITE);
 
-        nDialog =  new ProgressDialog(this);
+        nDialog = new ProgressDialog(this);
         nDialog.setMessage("Loading..");
         nDialog.setIndeterminate(false);
         nDialog.setCancelable(false);
@@ -117,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment f = this.getFragmentManager().findFragmentById(R.id.placeholder);
-        if (f instanceof ProductFragment || f instanceof CartFragment){
+        if (f instanceof ProductFragment || f instanceof CartFragment) {
             changeFragmentToCategory();
         }
     }
@@ -142,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //PRODUCT
-    public void changeFragmentToProductsWithCategory(Long categoryId){
+    public void changeFragmentToProductsWithCategory(Long categoryId) {
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -155,34 +151,34 @@ public class MainActivity extends AppCompatActivity {
         service.getProducts().enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido un error al buscar los productos", response.message());
-                }else {
-                        FragmentManager fm = getFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ProductFragment pf = new ProductFragment();
-                        List<Product> products = new ArrayList<>();
+                } else {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ProductFragment pf = new ProductFragment();
+                    List<Product> products = new ArrayList<>();
 
-                        for (Product product : response.body()) {
-                            if (product.getCategories().stream().anyMatch(c -> c.getId().equals(categoryId)) && (product.getStock() > 0)) {
-                                products.add(product);
-                            }
+                    for (Product product : response.body()) {
+                        if (product.getCategories().stream().anyMatch(c -> c.getId().equals(categoryId)) && (product.getStock() > 0)) {
+                            products.add(product);
                         }
-                        for (Map.Entry<Long, Product> entry : cartProducts.entrySet()) {
-                            Optional<Product> currentProd = products.stream().filter(p -> p.getId().equals(entry.getKey())).findAny();
-                            if (currentProd.isPresent()) {
-                                currentProd.get().setCount(entry.getValue().getCount());
-                            }
+                    }
+                    for (Map.Entry<Long, Product> entry : cartProducts.entrySet()) {
+                        Optional<Product> currentProd = products.stream().filter(p -> p.getId().equals(entry.getKey())).findAny();
+                        if (currentProd.isPresent()) {
+                            currentProd.get().setCount(entry.getValue().getCount());
                         }
-                        if (products.size() > 0) {
-                            pf.products = products;
-                            //pf.products = response.body();
-                            ft.replace(R.id.placeholder, pf);
-                            //ft.add(R.id.placeholder,pf);
-                            ft.commit();
-                        } else {
-                            showToast(false, "Esta categoria no cuenta con productos con stock disponible", null);
-                        }
+                    }
+                    if (products.size() > 0) {
+                        pf.products = products;
+                        //pf.products = response.body();
+                        ft.replace(R.id.placeholder, pf);
+                        //ft.add(R.id.placeholder,pf);
+                        ft.commit();
+                    } else {
+                        showToast(false, "Esta categoria no cuenta con productos con stock disponible", null);
+                    }
 
                 }
                 nDialog.hide();
@@ -197,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         this.visibleTotal();
     }
 
-    public void changeFragmentToSingleProduct(Long id){
+    public void changeFragmentToSingleProduct(Long id) {
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -210,9 +206,9 @@ public class MainActivity extends AppCompatActivity {
         service.getProduct(id).enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido un error al buscar el producto", response.message());
-                }else {
+                } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     ProductSingleItemFragment cf = new ProductSingleItemFragment();
@@ -233,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
-    public void logout(MenuItem item){
+    public void logout(MenuItem item) {
         this.loggedUser = null;
         mOptionsMenu.findItem(R.id.loginid).setVisible(true);
         mOptionsMenu.findItem(R.id.logoutid).setVisible(false);
@@ -247,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void changeFragmentToProfile(){
+    public void changeFragmentToProfile() {
         nDialog.show();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -259,12 +255,13 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
         nDialog.hide();
     }
-    public void changeFragmentToCategory(MenuItem item){
+
+    public void changeFragmentToCategory(MenuItem item) {
         this.changeFragmentToCategory();
     }
 
     //CATEGORY
-    public void changeFragmentToCategory(){
+    public void changeFragmentToCategory() {
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -277,9 +274,9 @@ public class MainActivity extends AppCompatActivity {
         service.getCategories().enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido un error al buscar las categorias", response.message());
-                }else {
+                } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     CategoryFragment cf = new CategoryFragment();
@@ -306,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //REPORT
-    public void changeFragmentToReports(MenuItem item){
+    public void changeFragmentToReports(MenuItem item) {
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -319,9 +316,9 @@ public class MainActivity extends AppCompatActivity {
         service.getReports().enqueue(new Callback<ReportPage>() {
             @Override
             public void onResponse(Call<ReportPage> call, Response<ReportPage> response) {
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido un error al buscar las noticias", response.message());
-                }else {
+                } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     ReportFragment pf = new ReportFragment();
@@ -345,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
-    public void changeFragmentToSingleReport(Long id){
+    public void changeFragmentToSingleReport(Long id) {
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -358,9 +355,9 @@ public class MainActivity extends AppCompatActivity {
         service.getReport(id).enqueue(new Callback<Report>() {
             @Override
             public void onResponse(Call<Report> call, Response<Report> response) {
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido un error al buscar la noticia", response.message());
-                }else {
+                } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     SingleReportFragment cf = new SingleReportFragment();
@@ -399,8 +396,8 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
-    public  void login(String user, String password){
-        if (user == null || user.isEmpty() || password == null || password.isEmpty()){
+    public void login(String user, String password) {
+        if (user == null || user.isEmpty() || password == null || password.isEmpty()) {
             showToast(false, "Ingrese usuario y contraseña", null);
             return;
         }
@@ -423,9 +420,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 nDialog.hide();
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido un error en el login", response.message());
-                }else {
+                } else {
                     showToast(false, "Login exitoso", null);
                     loggedUser = response.body();
                     mOptionsMenu.findItem(R.id.loginid).setVisible(false);
@@ -444,15 +441,15 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
-    public void showToast(boolean error, String message, String messageException){
+    public void showToast(boolean error, String message, String messageException) {
         if (error) {
             messageException = messageException != null && !messageException.isEmpty() ? ": " + messageException : "";
         }
-        Toast.makeText(getApplicationContext(),error?  message + messageException : message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), error ? message + messageException : message, Toast.LENGTH_SHORT).show();
     }
 
     //PRODUCER
-    public void changeFragmentToSingleProducer(Long id){
+    public void changeFragmentToSingleProducer(Long id) {
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -465,9 +462,9 @@ public class MainActivity extends AppCompatActivity {
         service.getProducer(id).enqueue(new Callback<Producer>() {
             @Override
             public void onResponse(Call<Producer> call, Response<Producer> response) {
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido al buscar al productor", response.message());
-                }else {
+                } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     ProducerSingleFragment cf = new ProducerSingleFragment();
@@ -488,7 +485,7 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
-    public void changeFragmentToProducers(MenuItem item){
+    public void changeFragmentToProducers(MenuItem item) {
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -501,9 +498,9 @@ public class MainActivity extends AppCompatActivity {
         service.getProducers().enqueue(new Callback<List<Producer>>() {
             @Override
             public void onResponse(Call<List<Producer>> call, Response<List<Producer>> response) {
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido al buscar los productores", response.message());
-                }else {
+                } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     ProducerFragment pf = new ProducerFragment();
@@ -540,7 +537,7 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
-    public void modifyTotal(Product product){
+    public void modifyTotal(Product product) {
         cartProducts.put(product.getId(), product);
         updateTotal();
     }
@@ -554,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
 
     public BigDecimal getTotal() {
         BigDecimal total = BigDecimal.ZERO;
-        for (Product p: cartProducts.values()){
+        for (Product p : cartProducts.values()) {
             total = total.add(new BigDecimal(p.getCount()).multiply(p.getPrice()));
         }
         return total;
@@ -566,7 +563,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateProfile(String name, String lastName) {
-        if (name == null || name.isEmpty() || lastName == null || lastName.isEmpty()){
+        if (name == null || name.isEmpty() || lastName == null || lastName.isEmpty()) {
             showToast(false, "Ingrese nombre y apellido", null);
             return;
         }
@@ -588,12 +585,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 nDialog.hide();
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido un al actualizar el perfil", response.message());
-                }else {
+                } else {
                     showToast(false, "Perfil actualizado con éxito", null);
                     loggedUser.setUser(response.body());
-                    cartProducts= new HashMap<>();
+                    cartProducts = new HashMap<>();
                     changeFragmentToCategory();
                 }
             }
@@ -609,7 +606,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showLastStep() {
 
-        if (loggedUser == null){
+        if (loggedUser == null) {
             changeFragmentToLogin();
             return;
         }
@@ -642,6 +639,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 nDialog.hide();
             }
+
             @Override
             public void onFailure(Call<General> call, Throwable t) {
                 showToast(true, "Se ha producido al buscar los nodos activos", t.getMessage());
@@ -650,21 +648,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void invisibleTotal(){
+    public void invisibleTotal() {
         this.findViewById(R.id.valuePrice).setVisibility(View.INVISIBLE);
         this.findViewById(R.id.textView6).setVisibility(View.INVISIBLE);
     }
 
-    public void visibleTotal(){
+    public void visibleTotal() {
         this.findViewById(R.id.valuePrice).setVisibility(View.VISIBLE);
         this.findViewById(R.id.textView6).setVisibility(View.VISIBLE);
     }
 
-    public void nodeSelected(View menu){
+    public void nodeSelected(View menu) {
         System.out.println(menu);
     }
 
-    public void buy(General general, Node nodeSelected, String medioPago){
+    public void buy(General general, Node nodeSelected, String medioPago) {
 
         nDialog.show();
 
@@ -672,7 +670,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Productos
         List<CartProductWrapper> products = new ArrayList<>();
-        this.cartProducts.forEach((k,v) -> {
+        this.cartProducts.forEach((k, v) -> {
             CartProduct cp = new CartProduct();
             cp.setId(v.getId());
             CartProductWrapper cpw = new CartProductWrapper();
@@ -710,9 +708,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 nDialog.hide();
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     showToast(true, "Se ha producido un error al intentar comprar", response.message());
-                }else {
+                } else {
                     showToast(false, "Se ha realizado la compra con éxito", null);
                     changeFragmentToCategory();
                     cartProducts = new HashMap<>();
@@ -754,7 +752,7 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
-    public void changeFragmentToRecovery(){
+    public void changeFragmentToRecovery() {
         nDialog.show();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -766,7 +764,7 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
-    public void changeFragmentToConfirmRecovery(){
+    public void changeFragmentToConfirmRecovery() {
         nDialog.show();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -790,22 +788,22 @@ public class MainActivity extends AppCompatActivity {
 
         service.saveUser(user).enqueue(new Callback<Object>() {
 
-        @Override
-        public void onResponse(Call<Object> call, Response<Object> response) {
-            nDialog.hide();
-            if (response.code() != 200){
-                showToast(true, "Se ha producido un error al intentar registrar al usuario", response.message());
-            }else {
-                showToast(false, "Se ha realizado el registro con éxito", null);
-                changeFragmentToCategory();
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                nDialog.hide();
+                if (response.code() != 200) {
+                    showToast(true, "Se ha producido un error al intentar registrar al usuario", response.message());
+                } else {
+                    showToast(false, "Se ha realizado el registro con éxito", null);
+                    changeFragmentToCategory();
+                }
             }
-        }
 
-        @Override
-        public void onFailure(Call<Object> call, Throwable t) {
-            showToast(true, "Se ha producido un error al intentar registrar el usuario", t.getMessage());
-            nDialog.hide();
-        }
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                showToast(true, "Se ha producido un error al intentar registrar el usuario", t.getMessage());
+                nDialog.hide();
+            }
         });
     }
 
@@ -850,7 +848,7 @@ public class MainActivity extends AppCompatActivity {
 
         Service service = retrofit.create(Service.class);
 
-         service.changePassword(body).enqueue(new Callback<Object>() {
+        service.changePassword(body).enqueue(new Callback<Object>() {
 
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {

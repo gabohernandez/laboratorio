@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -25,11 +24,9 @@ public class CartFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    public List<Product> products;
     // TODO: Customize parameters
     private int mColumnCount = 1;
-
-    public List<Product> products;
-
     private Context context;
 
     // TODO: Customize parameter initialization
@@ -57,31 +54,31 @@ public class CartFragment extends Fragment {
         View view = inflater.inflate(R.layout.cart_product_item_list, container, false);
         this.context = container.getContext();
         // Set the adapter
-       /* if (view instanceof RecyclerView) {*/
-            Context context = view.getContext();
-            RecyclerView recyclerView = view.findViewById(R.id.list); //(RecyclerView) view;
-            if (mColumnCount <= 1) {
-                LinearLayoutManager layout = new LinearLayoutManager(context);
-                recyclerView.setLayoutManager(layout);
-                recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), layout.getOrientation()));
-            } else {
-                GridLayoutManager layout = new GridLayoutManager(context, mColumnCount);
-                recyclerView.setLayoutManager(layout);
-                recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), layout.getOrientation()));
-            }
+        /* if (view instanceof RecyclerView) {*/
+        Context context = view.getContext();
+        RecyclerView recyclerView = view.findViewById(R.id.list); //(RecyclerView) view;
+        if (mColumnCount <= 1) {
+            LinearLayoutManager layout = new LinearLayoutManager(context);
+            recyclerView.setLayoutManager(layout);
+            recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), layout.getOrientation()));
+        } else {
+            GridLayoutManager layout = new GridLayoutManager(context, mColumnCount);
+            recyclerView.setLayoutManager(layout);
+            recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), layout.getOrientation()));
+        }
 
-            recyclerView.setAdapter(new MyCartRecyclerViewAdapter(products));
+        recyclerView.setAdapter(new MyCartRecyclerViewAdapter(products));
         //}
 
         Button finishBuyButton = view.findViewById(R.id.finishBuyButton);
         finishBuyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (context instanceof MainActivity){
+                if (context instanceof MainActivity) {
                     ((MainActivity) context).showLastStep();
                 }
             }
         });
-        if (this.products.isEmpty()){
+        if (this.products.isEmpty()) {
             finishBuyButton.setVisibility(View.GONE);
         } else {
             finishBuyButton.setVisibility(View.VISIBLE);

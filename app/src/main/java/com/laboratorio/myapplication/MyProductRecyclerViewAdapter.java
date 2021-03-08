@@ -1,7 +1,5 @@
 package com.laboratorio.myapplication;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.laboratorio.myapplication.dummy.DummyContent.DummyItem;
 import com.laboratorio.myapplication.model.Cart;
@@ -51,19 +51,19 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
         holder.price.setText(String.valueOf("$" + mValues.get(position).getPrice()));
         String s = "data:image/jpeg;base64,";
         byte[] decodedString = Base64.decode(mValues.get(position).getImages().get(0).getValue().replace(s, ""), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         holder.image.setImageBitmap(decodedByte);
         holder.count.setText(String.valueOf(mValues.get(position).getCount()));
 
         holder.buttonPlus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (mValues.get(position).getStock() == Integer.valueOf(holder.count.getText().toString())) {
-                    Toast.makeText(context, "No hay más stock disponible" ,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "No hay más stock disponible", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 holder.count.setText(String.valueOf(Integer.valueOf(holder.count.getText().toString()) + 1));
                 mValues.get(position).setCount(Integer.valueOf(holder.count.getText().toString()));
-                if (context instanceof MainActivity){
+                if (context instanceof MainActivity) {
                     ((MainActivity) context).modifyTotal(mValues.get(position));
                 }
             }
@@ -72,9 +72,9 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
         holder.buttonSubstract.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 int newCount = Integer.valueOf(holder.count.getText().toString()) - 1;
-                holder.count.setText(String.valueOf(newCount <= 0 ? 0: newCount ));
+                holder.count.setText(String.valueOf(newCount <= 0 ? 0 : newCount));
                 mValues.get(position).setCount(Integer.valueOf(holder.count.getText().toString()));
-                if (context instanceof  MainActivity){
+                if (context instanceof MainActivity) {
                     ((MainActivity) context).modifyTotal(mValues.get(position));
                 }
             }
@@ -82,7 +82,7 @@ public class MyProductRecyclerViewAdapter extends RecyclerView.Adapter<MyProduct
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (context instanceof  MainActivity){
+                if (context instanceof MainActivity) {
                     ((MainActivity) context).changeFragmentToSingleProduct(mValues.get(position).getId());
                 }
             }

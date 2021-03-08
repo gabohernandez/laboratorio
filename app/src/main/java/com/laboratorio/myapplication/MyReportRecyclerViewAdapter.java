@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.laboratorio.myapplication.dummy.DummyContent.DummyItem;
-
 import com.laboratorio.myapplication.model.Report;
 
 import java.util.List;
@@ -46,12 +45,12 @@ public class MyReportRecyclerViewAdapter extends RecyclerView.Adapter<MyReportRe
         holder.subtitle.setText(mValues.get(position).getSubtitle());
         String s = "data:image/jpeg;base64,";
         byte[] decodedString = Base64.decode(mValues.get(position).getImage().getValue(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         holder.image.setImageBitmap(decodedByte);
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (context instanceof  MainActivity){
+                if (context instanceof MainActivity) {
                     ((MainActivity) context).changeFragmentToSingleReport(mValues.get(position).getId());
                 }
             }
@@ -68,7 +67,7 @@ public class MyReportRecyclerViewAdapter extends RecyclerView.Adapter<MyReportRe
         public final ImageView image;
         public final TextView title;
         public final TextView subtitle;
-         public Report mItem;
+        public Report mItem;
 
         public ViewHolder(View view) {
             super(view);

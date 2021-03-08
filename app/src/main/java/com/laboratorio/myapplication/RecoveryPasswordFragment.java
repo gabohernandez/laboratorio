@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class RecoveryPasswordFragment extends Fragment {
     private Context context;
 
-    public RecoveryPasswordFragment(){
+    public RecoveryPasswordFragment() {
 
     }
 
@@ -29,9 +29,9 @@ public class RecoveryPasswordFragment extends Fragment {
         Button confirmCode = view.findViewById(R.id.confirmEmail);
         confirmCode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (context instanceof MainActivity){
+                if (context instanceof MainActivity) {
 
-                    ((MainActivity) context).sendCodeToEmail( ((TextView) view.findViewById(R.id.emailRecovery)).getText().toString() );
+                    ((MainActivity) context).sendCodeToEmail(((TextView) view.findViewById(R.id.emailRecovery)).getText().toString());
                 }
             }
         });

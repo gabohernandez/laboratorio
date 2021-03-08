@@ -1,11 +1,8 @@
 package com.laboratorio.myapplication;
 
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -13,12 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.laboratorio.myapplication.model.Node;
-import com.laboratorio.myapplication.model.Producer;
-
-import java.util.List;
-
-public class MyCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<MyCheckoutRecyclerViewAdapter.ViewHolder>{
+public class MyCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<MyCheckoutRecyclerViewAdapter.ViewHolder> {
 
     @NonNull
     @Override

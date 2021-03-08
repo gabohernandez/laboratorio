@@ -8,18 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.laboratorio.myapplication.model.Report;
-
-import java.util.List;
 
 public class LoginFragment extends Fragment {
 
-    private Context context;
     public Button buttonLogin;
     public Button buttonRegister;
     public Button buttonRecovery;
+    private Context context;
 
     public LoginFragment() {
     }
@@ -43,23 +38,23 @@ public class LoginFragment extends Fragment {
                 TextView name = (TextView) view.findViewById(R.id.emailEntry);
                 TextView password = (TextView) view.findViewById(R.id.passwordEntry);
 
-                if (context instanceof MainActivity){
-                    ((MainActivity) context).login(name.getText().toString(),password.getText().toString());
+                if (context instanceof MainActivity) {
+                    ((MainActivity) context).login(name.getText().toString(), password.getText().toString());
                 }
             }
-            });
-        buttonRegister.setOnClickListener( new View.OnClickListener() {
+        });
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity) context).changeFragmentToRegister();
             }
         });
-        buttonRecovery.setOnClickListener( new View.OnClickListener() {
+        buttonRecovery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity) context).changeFragmentToRecovery();
             }
         });
-            return view;
+        return view;
     }
 }

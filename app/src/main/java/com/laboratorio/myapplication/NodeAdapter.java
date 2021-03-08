@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.laboratorio.myapplication.model.Node;
@@ -21,7 +20,6 @@ public class NodeAdapter extends ArrayAdapter<Node> {
         super(context, 0, nodes);
         this.nodes = nodes;
     }
-
 
 
     @Override
@@ -43,7 +41,7 @@ public class NodeAdapter extends ArrayAdapter<Node> {
         // Populate the data into the template view using the data object
         tvName.setText(node.getName());
         tvAddress.setText(".hometown");
-        if (node.isSelected()){
+        if (node.isSelected()) {
             convertView.setBackgroundColor(Color.RED);
         }
         // Return the completed view to render on screen

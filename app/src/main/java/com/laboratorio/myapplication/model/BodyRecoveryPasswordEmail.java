@@ -3,10 +3,11 @@ package com.laboratorio.myapplication.model;
 public class BodyRecoveryPasswordEmail {
     private String email;
 
-    public BodyRecoveryPasswordEmail(){
+    public BodyRecoveryPasswordEmail() {
 
     }
-    public BodyRecoveryPasswordEmail(String email){
+
+    public BodyRecoveryPasswordEmail(String email) {
         this.email = email;
     }
 

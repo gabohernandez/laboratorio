@@ -14,9 +14,9 @@ import com.laboratorio.myapplication.model.User;
 
 public class AddressFragment extends Fragment {
 
+    public User usuario;
     private Context context;
     private Button finishButton;
-    public User usuario;
 
     public AddressFragment() {
     }
@@ -34,8 +34,7 @@ public class AddressFragment extends Fragment {
         this.context = container.getContext();
 
 
-
-        finishButton =  view.findViewById(R.id.finishRegisterButton);
+        finishButton = view.findViewById(R.id.finishRegisterButton);
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +45,7 @@ public class AddressFragment extends Fragment {
                 String dpto = ((TextView) view.findViewById(R.id.editTextTextPersonName7)).getText().toString();
                 String descript = ((TextView) view.findViewById(R.id.editTextTextPersonName8)).getText().toString();
 
-                Address direccion = new Address(calle,entreCalles,numero,piso,dpto,descript);
+                Address direccion = new Address(calle, entreCalles, numero, piso, dpto, descript);
 
                 usuario.setAddress(direccion);
                 ((MainActivity) context).saveUser(usuario);

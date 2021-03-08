@@ -9,17 +9,16 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laboratorio.myapplication.model.Node;
 
-
 import java.util.List;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class NodeService extends IntentService  {
+public class NodeService extends IntentService {
 
     private Service service;
 
-    public NodeService(){
+    public NodeService() {
         super("NodeService");
 
         ObjectMapper mapper = new ObjectMapper();
@@ -36,7 +35,7 @@ public class NodeService extends IntentService  {
     protected void onHandleIntent(@Nullable Intent intent) {
         try {
             List<Node> nodes = service.getNodes().execute().body();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

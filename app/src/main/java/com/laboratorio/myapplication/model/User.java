@@ -22,7 +22,7 @@ public class User {
         this.encryptedPassword = password;
     }
 
-    public User(){
+    public User() {
 
     }
 

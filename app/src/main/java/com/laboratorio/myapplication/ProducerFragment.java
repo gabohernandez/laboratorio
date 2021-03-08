@@ -20,10 +20,9 @@ public class ProducerFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    public List<Producer> producers;
     // TODO: Customize parameters
     private int mColumnCount = 1;
-
-    public List<Producer> producers;
 
     // TODO: Customize parameter initialization
     public static ProducerFragment newInstance(int columnCount) {

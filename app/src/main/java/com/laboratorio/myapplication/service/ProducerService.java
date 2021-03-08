@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laboratorio.myapplication.model.Producer;
 
-
 import java.util.List;
 
 import retrofit2.Retrofit;
@@ -19,7 +18,7 @@ public class ProducerService extends IntentService {
 
     private Service service;
 
-    public ProducerService(){
+    public ProducerService() {
 
         super("ProducerService");
 
@@ -37,7 +36,7 @@ public class ProducerService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         try {
             List<Producer> producers = service.getProducers().execute().body();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

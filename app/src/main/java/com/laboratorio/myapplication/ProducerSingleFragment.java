@@ -35,7 +35,7 @@ public class ProducerSingleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.producer_single, container, false);
-        ((TextView)view.findViewById(R.id.producerName)).setText(this.producer.getName());
+        ((TextView) view.findViewById(R.id.producerName)).setText(this.producer.getName());
         ((TextView) view.findViewById(R.id.producerDescription)).setText(this.producer.getDescription());
         ((TextView) view.findViewById(R.id.producerPhone)).setText((this.producer.getPhone()));
         ((TextView) view.findViewById(R.id.producerEmail)).setText((this.producer.getPhone()));
