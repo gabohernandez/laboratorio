@@ -15,6 +15,7 @@ import com.laboratorio.myapplication.model.Report;
 import com.laboratorio.myapplication.model.ReportPage;
 import com.laboratorio.myapplication.model.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,6 +25,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface Service {
 
@@ -74,5 +76,6 @@ public interface Service {
     @POST("api/email/recovery/confirm")
     Call<Object> changePassword(@Body BodyRecoveryPasswordConfirm body);
 
-    Call<List<CartHistory>> getCartHistory();
+    @GET("api/cart")
+    public Call<List<CartHistory>> getCartHistory(@Header("Authorization") String token,@Query("properties")HashMap<Object,Object> firstParameter, @Query("range") String range, @Query("sort") String sort);
 }

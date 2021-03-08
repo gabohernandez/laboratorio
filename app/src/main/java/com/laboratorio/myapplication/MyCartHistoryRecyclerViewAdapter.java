@@ -51,7 +51,7 @@ public class MyCartHistoryRecyclerViewAdapter extends RecyclerView.Adapter<MyCar
         holder.mItem = mValues.get(position);
         holder.date.setText(mValues.get(position).getDate());
         holder.amount.setText(mValues.get(position).getAmount().toString());
-        holder.node.setText(String.valueOf("$" + mValues.get(position).getNode().getName()));
+        holder.node.setText(mValues.get(position).getNode().getName());
     }
 
     @Override

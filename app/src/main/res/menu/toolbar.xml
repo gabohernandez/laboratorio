@@ -15,6 +15,10 @@
         android:onClick="changeFragmentToProfile"
         android:title="@string/Perfil" />
     <item
+        android:id="@+id/cartHistory"
+        android:onClick="changeFragmentToCartHistory"
+        android:title="@string/carthistory" />
+    <item
         android:id="@+id/noticiasid"
         android:onClick="changeFragmentToReports"
         android:title="@string/Noticias" />

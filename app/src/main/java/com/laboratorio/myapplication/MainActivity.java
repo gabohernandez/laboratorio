@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         this.mOptionsMenu = menu;
         menu.findItem(R.id.logoutid).setVisible(false);
         menu.findItem(R.id.perfilid).setVisible(false);
+        menu.findItem(R.id.cartHistory).setVisible(false);
         return true;
     }
 
@@ -235,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
         mOptionsMenu.findItem(R.id.loginid).setVisible(true);
         mOptionsMenu.findItem(R.id.logoutid).setVisible(false);
         mOptionsMenu.findItem(R.id.perfilid).setVisible(false);
+        mOptionsMenu.findItem(R.id.cartHistory).setVisible(false);
         showToast(false, "Logout exitoso", null);
     }
 
@@ -429,6 +431,7 @@ public class MainActivity extends AppCompatActivity {
                     mOptionsMenu.findItem(R.id.loginid).setVisible(false);
                     mOptionsMenu.findItem(R.id.logoutid).setVisible(true);
                     mOptionsMenu.findItem(R.id.perfilid).setVisible(true);
+                    mOptionsMenu.findItem(R.id.cartHistory).setVisible(true);
                     changeFragmentToCategory();
                 }
             }
@@ -870,7 +873,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void changeFragmentToCartHistory(){
+    public void changeFragmentToCartHistory(MenuItem menuItem){
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -880,7 +883,12 @@ public class MainActivity extends AppCompatActivity {
 
         Service service = retrofit.create(Service.class);
 
-        service.getCartHistory().enqueue(new Callback<List<CartHistory>>() {
+        HashMap<Object,Object> firstParameter = new HashMap<Object,Object>();
+
+        firstParameter.put("history",true);
+        firstParameter.put("user.id",loggedUser.getUser().getId());
+
+        service.getCartHistory("Bearer ".concat(loggedUser.getValue()),firstParameter,"1,10","id,ASC").enqueue(new Callback<List<CartHistory>>() {
             @Override
             public void onResponse(Call<List<CartHistory>> call, Response<List<CartHistory>> response) {
                 if (response.code() != 200) {
@@ -891,7 +899,6 @@ public class MainActivity extends AppCompatActivity {
                     CartHistoryFragment cf = new CartHistoryFragment();
                     cf.cartHistories = response.body();
                     ft.replace(R.id.placeholder, cf);
-                    // ft.add(R.id.placeholder,f);
                     ft.commit();
                 }
                 nDialog.hide();
