@@ -42,8 +42,13 @@ public class RegisterFragment extends Fragment {
                 String age = ((TextView)view.findViewById(R.id.editTextAge)).getText().toString();
                 String phone = ((TextView)view.findViewById(R.id.editTextPhone)).getText().toString();
                 String password = ((TextView)view.findViewById(R.id.editTextTextPassword)).getText().toString();
-                usuario = new User(name, lastName, email, phone, age, password);
-                ((MainActivity) context).changeFragmentToAddress(usuario);
+                String confirmPassword = ((TextView)view.findViewById(R.id.editTextTextPassword2)).getText().toString();
+                if (password.equals(confirmPassword)) {
+                    usuario = new User(name, lastName, email, phone, age, password);
+                    ((MainActivity) context).changeFragmentToAddress(usuario);
+                } else {
+                    ((MainActivity)context).showToast(false, "Las contraseñas ingresadas no coinciden", null);
+                }
             }
         });
 

@@ -30,6 +30,7 @@ public class RecoveryPasswordFragment extends Fragment {
         confirmCode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (context instanceof MainActivity){
+
                     ((MainActivity) context).sendCodeToEmail( ((TextView) view.findViewById(R.id.emailRecovery)).getText().toString() );
                 }
             }

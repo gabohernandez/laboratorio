@@ -30,15 +30,22 @@ public class RecoveryPasswordConfirmFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recovery_newpassword, container, false);
         this.context = container.getContext();
+
         confirmCode = view.findViewById(R.id.confirmPasswordButton);
         confirmCode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (context instanceof MainActivity){
-                    BodyRecoveryPasswordConfirm body = new BodyRecoveryPasswordConfirm();
-                    body.setCode(((TextView) view.findViewById(R.id.codeEntry)).getText().toString());
-                    body.setEmail(((TextView) view.findViewById(R.id.emailConfirmNewPassword)).getText().toString());
-                    body.setNewPassword(((TextView) view.findViewById(R.id.newPassword)).getText().toString());
-                    ((MainActivity) context).changeFragmentToPasswordAndLogin(body);
+                    String newPassword = ((TextView) view.findViewById(R.id.newPassword)).getText().toString();
+                    String confirmPassword = ((TextView) view.findViewById(R.id.emailConfirmNewPassword)).getText().toString();
+                    if (newPassword.equals(confirmPassword)) {
+                        BodyRecoveryPasswordConfirm body = new BodyRecoveryPasswordConfirm();
+                        body.setCode(((TextView) view.findViewById(R.id.codeEntry)).getText().toString());
+                        body.setEmail(confirmPassword);
+                        body.setNewPassword(newPassword);
+                        ((MainActivity) context).changeFragmentToPasswordAndLogin(body);
+                    } else{
+                        ((MainActivity)context).showToast(false, "Las contraseñas ingresadas no coinciden", null);
+                    }
                 }
             }
         });
