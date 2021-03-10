@@ -1,22 +1,34 @@
 package com.laboratorio.myapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 
 
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import androidx.core.content.ContextCompat;
+
+import com.laboratorio.myapplication.gps.GPSTracker;
+
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -38,10 +50,6 @@ public class MapFragment extends Fragment {
 
         Configuration.getInstance().load(context,PreferenceManager.getDefaultSharedPreferences(context));
 
-        //setContentView(R.layout.activity_main);
-
-        //MapView map = new MapView(context);
-
         MapView map = (MapView) view.findViewById(R.id.mapView);
 
         map.setTileSource(TileSourceFactory.MAPNIK);
@@ -50,13 +58,25 @@ public class MapFragment extends Fragment {
         map.getOverlays().add(myLocationoverlay);
         myLocationoverlay.enableMyLocation();
 
-        IMapController mapController=map.getController();
-        mapController.setZoom(10.5);
-        GeoPoint startPoint = new GeoPoint(myLocationoverlay.getMyLocation().getLatitude(),myLocationoverlay.getMyLocation().getLongitude());
-        mapController.setCenter(startPoint);
+        IMapController mapController = map.getController();
+        mapController.setZoom(15);
+
+        GPSTracker gpstracker = new GPSTracker(context);
+
+        Double latitude = gpstracker.getLatitude();
+        Double longitude = gpstracker.getLongitude();
+
+        GeoPoint userPoint = new GeoPoint(latitude,longitude);
+
+        Marker userMarker = new Marker(map);
+        userMarker.setPosition(userPoint);
+        userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        map.getOverlays().add(userMarker);
+
+        mapController.setCenter(userPoint);
+
 
         return view;
     }
-
 
 }
