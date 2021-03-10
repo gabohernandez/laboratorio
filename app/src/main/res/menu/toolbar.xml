@@ -34,6 +34,10 @@
         android:id="@+id/logoutid"
         android:onClick="logout"
         android:title="@string/Logout" />
+    <item
+        android:id="@+id/mapid"
+        android:onClick="changeFragmentToMap"
+        android:title="@string/map" />
 
     <item
         android:id="@+id/action_cart"

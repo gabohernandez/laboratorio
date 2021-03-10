@@ -31,4 +31,5 @@
     <string name="SobreNosotros">Sobre Nosotros</string>
     <string name="cartsimbol">CartSimbol</string>
     <string name="carthistory">Historial de Pedidos</string>
+    <string name="map">Mapa</string>
 </resources>

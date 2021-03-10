@@ -912,4 +912,15 @@ public class MainActivity extends AppCompatActivity {
         });
         this.invisibleTotal();
     }
+
+    public void changeFragmentToMap (MenuItem menuItem){
+        nDialog.show();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        MapFragment cf = new MapFragment();
+        ft.replace(R.id.placeholder, cf);
+        this.invisibleTotal();
+        ft.commit();
+        nDialog.hide();
+    }
 }
