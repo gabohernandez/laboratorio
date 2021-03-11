@@ -300,11 +300,6 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
-    //CHECKOUT
-    public void changeFragmentToCheckout() {
-
-    }
-
     //REPORT
     public void changeFragmentToReports(MenuItem item) {
         nDialog.show();
@@ -922,5 +917,34 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
         ft.commit();
         nDialog.hide();
+    }
+
+    public void getNodes(){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://ec2-3-227-239-131.compute-1.amazonaws.com/api/category/")
+                .addConverterFactory(JacksonConverterFactory.create(mapper)).build();
+
+        Service service = retrofit.create(Service.class);
+
+        service.getNodes().enqueue(new Callback<List<Node>>() {
+            @Override
+            public void onResponse(Call<List<Node>> call, Response<List<Node>> response) {
+                if (response.code() != 200) {
+                    showToast(true, "Se ha producido al buscar los nodos", response.message());
+                } else {
+                    List<Node> nodes = response.body();
+                    //TODO: ver como devolver los nodos en forma de lista
+                }
+                nDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<List<Node>> call, Throwable t) {
+                showToast(true, "Se ha producido al buscar los nodos", t.getMessage());
+                nDialog.hide();
+            }
+        });
     }
 }

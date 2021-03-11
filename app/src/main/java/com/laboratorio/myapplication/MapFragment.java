@@ -59,12 +59,14 @@ public class MapFragment extends Fragment {
         myLocationoverlay.enableMyLocation();
 
         IMapController mapController = map.getController();
-        mapController.setZoom(15);
+        mapController.setZoom(15.00);
 
         GPSTracker gpstracker = new GPSTracker(context);
 
         Double latitude = gpstracker.getLatitude();
         Double longitude = gpstracker.getLongitude();
+
+        this.setNodes();
 
         GeoPoint userPoint = new GeoPoint(latitude,longitude);
 
@@ -77,6 +79,12 @@ public class MapFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void setNodes(){
+        if (context instanceof MainActivity) {
+            ((MainActivity) context).getNodes();
+        }
     }
 
 }
