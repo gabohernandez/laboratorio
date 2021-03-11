@@ -74,7 +74,7 @@ public class CartFragment extends Fragment {
         finishBuyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (context instanceof MainActivity) {
-                    ((MainActivity) context).showLastStep();
+                    ((MainActivity) context).showLastStep(null);
                 }
             }
         });

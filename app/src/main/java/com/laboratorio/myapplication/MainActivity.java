@@ -580,7 +580,7 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
-    public void showLastStep() {
+    public void showLastStep(Node node) {
 
         if (loggedUser == null) {
             changeFragmentToLogin();
@@ -605,7 +605,7 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     CheckoutFragment pf = new CheckoutFragment();
-
+                    pf.node = node;
                     pf.total = getTotal();
                     pf.general = response.body();
                     ft.replace(R.id.placeholder, pf);
@@ -746,6 +746,7 @@ public class MainActivity extends AppCompatActivity {
         nDialog.hide();
     }
 
+
     public void saveUser(User user) {
         nDialog.show();
         ObjectMapper mapper = new ObjectMapper();
@@ -879,18 +880,7 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
-    public void changeFragmentToMap (MenuItem menuItem){
-        nDialog.show();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        MapFragment cf = new MapFragment();
-        ft.replace(R.id.placeholder, cf);
-        this.invisibleTotal();
-        ft.commit();
-        nDialog.hide();
-    }
-
-    public void getNodes(){
+    public void changeFragmentToMap() {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -906,7 +896,15 @@ public class MainActivity extends AppCompatActivity {
                 if (response.code() != 200) {
                     showToast(true, "Se ha producido un error al buscar los nodos", response.message());
                 } else {
-                    List<Node> nodes = response.body();
+                    nDialog.show();
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    MapBuyFragment cf = new MapBuyFragment();
+                    ft.replace(R.id.placeholder, cf);
+                    cf.setNodes(response.body());
+                    invisibleTotal();
+                    ft.commit();
+                    nDialog.hide();
                     //TODO: ver como devolver los nodos en forma de lista
                 }
                 nDialog.hide();
@@ -919,4 +917,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void changeFragmentToMap (MenuItem menuItem){
+        this.changeFragmentToMap();
+    }
+
 }

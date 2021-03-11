@@ -25,21 +25,27 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.List;
 
-public class MapFragment extends Fragment {
+public class MapBuyFragment extends Fragment {
 
     private Context context;
     private MapView map;
+    private List<Node> nodes;
 
-    public MapFragment(){
+    public MapBuyFragment(){
 
     }
+
+    public void setNodes(List<Node> nodes){
+        this.nodes = nodes;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view;
-        view = inflater.inflate(R.layout.map_test, container, false);
+        view = inflater.inflate(R.layout.map_buy, container, false);
 
         this.context = container.getContext();
 
@@ -78,7 +84,6 @@ public class MapFragment extends Fragment {
 
     private void setNodes(){
         if (context instanceof MainActivity) {
-/*            List<Node> nodes = ((MainActivity) context).getNodes();
             nodes.forEach(node -> {
                 double latitude = node.getAddress().getLatitude();
                 double longitude = node.getAddress().getLongitude();
@@ -86,9 +91,17 @@ public class MapFragment extends Fragment {
                 Marker nodeMarker = new Marker(map);
                 nodeMarker.setPosition(nodePoint);
                 nodeMarker.setAnchor(Marker.ANCHOR_CENTER,Marker.ANCHOR_BOTTOM);
+                nodeMarker.setOnMarkerClickListener((marker, mapView) -> {
+                    ((MainActivity) context).showLastStep(node);
+                    return false;
+                });
                 map.getOverlays().add(nodeMarker);
-            });*/
+            });
         }
+    }
+
+    private void setNode(){
+
     }
 
 }

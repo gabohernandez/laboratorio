@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.laboratorio.myapplication.model.General;
 import com.laboratorio.myapplication.model.GeneralNode;
+import com.laboratorio.myapplication.model.Node;
 
 import java.math.BigDecimal;
 
@@ -21,6 +22,7 @@ public class CheckoutFragment extends Fragment {
 
     public General general;
     public BigDecimal total;
+    public Node node;
     private Context context;
 
     public static CheckoutFragment newInstance() {
@@ -39,14 +41,16 @@ public class CheckoutFragment extends Fragment {
 
         view.findViewById(R.id.buyButton).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Spinner spinner = (Spinner) view.findViewById(R.id.nodesSpinner);
-
+                if (node == null) {
+                    ((MainActivity) context).showToast(true,"Se debe seleccionar un nodo",null);
+                    return;
+                }
                 RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
                 RadioButton radioButton = (RadioButton) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
                 String paymentMethod = radioButton.getText().toString();
 
                 if (context instanceof MainActivity) {
-                    ((MainActivity) context).buy(general, ((GeneralNode) spinner.getSelectedItem()).getNode(), paymentMethod);
+                    ((MainActivity) context).buy(general, node, paymentMethod);
                 }
             }
         });
@@ -54,26 +58,18 @@ public class CheckoutFragment extends Fragment {
         this.context = container.getContext();
         ((TextView) view.findViewById(R.id.amount)).setText(total.toString());
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.nodesSpinner);
-        ArrayAdapter<GeneralNode> adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_item,
-                general.getActiveNodes());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        if (node != null) {
+            ((TextView) view.findViewById(R.id.selectedNode)).setText(node.getAddress().getStreet());
 
-        /*
-        NodeAdapter adapter = new NodeAdapter(this.context, new ArrayList(general.getActiveNodes().stream().map(GeneralNode::getNode).collect(Collectors.toList())));
-        list.setAdapter(adapter);
+        }
 
-        list.setOnItemClickListener( new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                //((NodeAdapter)adapterView.getAdapter()).nodes.forEach();
-                //view.setBackgroundColor(Color.RED) ;
+        view.findViewById(R.id.showMapButton).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (context instanceof MainActivity) {
+                    ((MainActivity) context).changeFragmentToMap();
+                }
             }
-        }) ;
-
-*/
+        });
 
         return view;
     }
