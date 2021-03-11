@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import androidx.core.content.ContextCompat;
 
 import com.laboratorio.myapplication.gps.GPSTracker;
+import com.laboratorio.myapplication.model.Node;
 
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.api.IMapController;
@@ -32,9 +33,12 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.util.List;
+
 public class MapFragment extends Fragment {
 
     private Context context;
+    private MapView map;
 
     public MapFragment(){
 
@@ -50,7 +54,7 @@ public class MapFragment extends Fragment {
 
         Configuration.getInstance().load(context,PreferenceManager.getDefaultSharedPreferences(context));
 
-        MapView map = (MapView) view.findViewById(R.id.mapView);
+        map = (MapView) view.findViewById(R.id.mapView);
 
         map.setTileSource(TileSourceFactory.MAPNIK);
 
@@ -83,7 +87,16 @@ public class MapFragment extends Fragment {
 
     private void setNodes(){
         if (context instanceof MainActivity) {
-            ((MainActivity) context).getNodes();
+            List<Node> nodes = ((MainActivity) context).getNodes();
+            nodes.forEach(node -> {
+                Double latitude = node.getAddress().getLatitude();
+                Double longitude = node.getAddress().getLongitude();
+                GeoPoint nodePoint = new GeoPoint(latitude,longitude);
+                Marker nodeMarker = new Marker(map);
+                nodeMarker.setPosition(nodePoint);
+                nodeMarker.setAnchor(Marker.ANCHOR_CENTER,Marker.ANCHOR_BOTTOM);
+                map.getOverlays().add(nodeMarker);
+            });
         }
     }
 

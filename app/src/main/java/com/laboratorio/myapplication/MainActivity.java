@@ -920,6 +920,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getNodes(){
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
