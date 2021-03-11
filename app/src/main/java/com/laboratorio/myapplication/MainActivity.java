@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -64,10 +63,6 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog nDialog;
 
     private Map<Long, Product> cartProducts = new HashMap<>();
-    private Long partialPrice = 0L;
-
-    private Context context;
-    private Map<Long, Report> reports = new HashMap<>();
 
     private LoginResponse loggedUser;
 
@@ -120,9 +115,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean onClick(MenuItem item) {
-        return true;
-    }
 
     //CART
     public void changeFragmentToCart(MenuItem item) {
@@ -493,8 +485,6 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     ProducerFragment pf = new ProducerFragment();
-                    List<Producer> producers = new ArrayList<>();
-
                     pf.producers = response.body();
                     ft.replace(R.id.placeholder, pf);
                     ft.commit();
