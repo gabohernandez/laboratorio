@@ -174,9 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (products.size() > 0) {
                         pf.products = products;
-                        //pf.products = response.body();
                         ft.replace(R.id.placeholder, pf);
-                        //ft.add(R.id.placeholder,pf);
                         ft.commit();
                     } else {
                         showToast(false, "Esta categoria no cuenta con productos con stock disponible", null);
@@ -216,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
                     ProductSingleItemFragment cf = new ProductSingleItemFragment();
                     cf.product = response.body();
                     ft.replace(R.id.placeholder, cf);
-                    //ft.add(R.id.placeholder,f);
                     ft.commit();
                 }
                 nDialog.hide();
@@ -254,7 +251,6 @@ public class MainActivity extends AppCompatActivity {
         cf.user = this.loggedUser.getUser();
         ft.replace(R.id.placeholder, cf);
         this.invisibleTotal();
-        //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();
     }
@@ -285,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
                     CategoryFragment cf = new CategoryFragment();
                     cf.categories = response.body();
                     ft.replace(R.id.placeholder, cf);
-                    // ft.add(R.id.placeholder,f);
                     ft.commit();
                 }
                 nDialog.hide();
@@ -323,9 +318,7 @@ public class MainActivity extends AppCompatActivity {
                     List<Report> reports = response.body().getPage();
 
                     pf.report = reports;
-                    //pf.products = response.body();
                     ft.replace(R.id.placeholder, pf);
-                    //ft.add(R.id.placeholder,pf);
                     ft.commit();
                 }
                 nDialog.hide();
@@ -361,7 +354,6 @@ public class MainActivity extends AppCompatActivity {
                     SingleReportFragment cf = new SingleReportFragment();
                     cf.report = response.body();
                     ft.replace(R.id.placeholder, cf);
-                    //ft.add(R.id.placeholder,f);
                     ft.commit();
                 }
                 nDialog.hide();
@@ -388,7 +380,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         LoginFragment cf = new LoginFragment();
         ft.replace(R.id.placeholder, cf);
-        //ft.add(R.id.placeholder,f);
         this.invisibleTotal();
         ft.commit();
         nDialog.hide();
@@ -462,14 +453,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Producer> call, Response<Producer> response) {
                 if (response.code() != 200) {
-                    showToast(true, "Se ha producido al buscar al productor", response.message());
+                    showToast(true, "Se ha producido un error al buscar al productor", response.message());
                 } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     ProducerSingleFragment cf = new ProducerSingleFragment();
                     cf.producer = response.body();
                     ft.replace(R.id.placeholder, cf);
-                    //ft.add(R.id.placeholder,f);
                     ft.commit();
                 }
                 nDialog.hide();
@@ -477,7 +467,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Producer> call, Throwable t) {
-                showToast(true, "Se ha producido al buscar al productor", t.getMessage());
+                showToast(true, "Se ha producido un error al buscar al productor", t.getMessage());
                 nDialog.hide();
             }
         });
@@ -498,7 +488,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Producer>> call, Response<List<Producer>> response) {
                 if (response.code() != 200) {
-                    showToast(true, "Se ha producido al buscar los productores", response.message());
+                    showToast(true, "Se ha producido un error al buscar los productores", response.message());
                 } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
@@ -506,9 +496,7 @@ public class MainActivity extends AppCompatActivity {
                     List<Producer> producers = new ArrayList<>();
 
                     pf.producers = response.body();
-                    //pf.products = response.body();
                     ft.replace(R.id.placeholder, pf);
-                    //ft.add(R.id.placeholder,pf);
                     ft.commit();
                 }
                 nDialog.hide();
@@ -516,7 +504,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Producer>> call, Throwable t) {
-                showToast(true, "Se ha producido al buscar los productores", t.getMessage());
+                showToast(true, "Se ha producido un error al buscar los productores", t.getMessage());
                 nDialog.hide();
             }
         });
@@ -531,7 +519,6 @@ public class MainActivity extends AppCompatActivity {
         AboutUsFragment cf = new AboutUsFragment();
         ft.replace(R.id.placeholder, cf);
         this.invisibleTotal();
-        //ft.add(R.id.placeholder,f);
         ft.commit();
         nDialog.hide();
     }
@@ -585,7 +572,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 nDialog.hide();
                 if (response.code() != 200) {
-                    showToast(true, "Se ha producido un al actualizar el perfil", response.message());
+                    showToast(true, "Se ha producido un error al actualizar el perfil", response.message());
                 } else {
                     showToast(false, "Perfil actualizado con éxito", null);
                     loggedUser.setUser(response.body());
@@ -623,7 +610,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<General> call, Response<General> response) {
                 if (response.code() != 200) {
-                    showToast(true, "Se ha producido al buscar los nodos activos", response.message());
+                    showToast(true, "Se ha producido un error al buscar los nodos activos", response.message());
                 } else {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
@@ -631,9 +618,7 @@ public class MainActivity extends AppCompatActivity {
 
                     pf.total = getTotal();
                     pf.general = response.body();
-                    //pf.products = response.body();
                     ft.replace(R.id.placeholder, pf);
-                    //ft.add(R.id.placeholder,pf);
                     ft.commit();
                 }
                 nDialog.hide();
@@ -641,7 +626,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<General> call, Throwable t) {
-                showToast(true, "Se ha producido al buscar los nodos activos", t.getMessage());
+                showToast(true, "Se ha producido un error al buscar los nodos activos", t.getMessage());
                 nDialog.hide();
             }
         });
@@ -732,7 +717,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         RegisterFragment cf = new RegisterFragment();
         ft.replace(R.id.placeholder, cf);
-        //ft.add(R.id.placeholder,f);
         this.invisibleTotal();
         ft.commit();
         nDialog.hide();
@@ -745,7 +729,6 @@ public class MainActivity extends AppCompatActivity {
         AddressFragment cf = new AddressFragment();
         cf.usuario = usuario;
         ft.replace(R.id.placeholder, cf);
-        //ft.add(R.id.placeholder,f);
         this.invisibleTotal();
         ft.commit();
         nDialog.hide();
@@ -757,7 +740,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         RecoveryPasswordFragment cf = new RecoveryPasswordFragment();
         ft.replace(R.id.placeholder, cf);
-        //ft.add(R.id.placeholder,f);
         this.invisibleTotal();
         ft.commit();
         nDialog.hide();
@@ -769,7 +751,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         RecoveryPasswordConfirmFragment cf = new RecoveryPasswordConfirmFragment();
         ft.replace(R.id.placeholder, cf);
-        //ft.add(R.id.placeholder,f);
         this.invisibleTotal();
         ft.commit();
         nDialog.hide();
@@ -933,7 +914,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Node>> call, Response<List<Node>> response) {
                 if (response.code() != 200) {
-                    showToast(true, "Se ha producido al buscar los nodos", response.message());
+                    showToast(true, "Se ha producido un error al buscar los nodos", response.message());
                 } else {
                     List<Node> nodes = response.body();
                     //TODO: ver como devolver los nodos en forma de lista
@@ -943,7 +924,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Node>> call, Throwable t) {
-                showToast(true, "Se ha producido al buscar los nodos", t.getMessage());
+                showToast(true, "Se ha producido un error al buscar los nodos", t.getMessage());
                 nDialog.hide();
             }
         });
