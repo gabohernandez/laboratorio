@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.laboratorio.myapplication.model.Product;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -74,7 +75,10 @@ public class CartFragment extends Fragment {
         finishBuyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (context instanceof MainActivity) {
-                    ((MainActivity) context).showLastStep(null);
+                    double[] distance = {
+                            0,0
+                    };
+                    ((MainActivity) context).showLastStep(null, distance);
                 }
             }
         });

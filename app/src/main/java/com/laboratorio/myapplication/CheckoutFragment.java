@@ -3,6 +3,7 @@ package com.laboratorio.myapplication;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class CheckoutFragment extends Fragment {
     public General general;
     public BigDecimal total;
     public Node node;
+    public double[] distance;
     private Context context;
 
     public static CheckoutFragment newInstance() {
@@ -59,8 +61,9 @@ public class CheckoutFragment extends Fragment {
         ((TextView) view.findViewById(R.id.amount)).setText(total.toString());
 
         if (node != null) {
-            ((TextView) view.findViewById(R.id.selectedNode)).setText(node.getAddress().getStreet());
-
+            ((TextView) view.findViewById(R.id.selectedNode)).setText((node.getAddress().getStreet()).concat("  N°").concat(node.getAddress().getNumber()));
+            ((TextView) view.findViewById(R.id.distanceNode)).setText(String.valueOf(distance[1]).concat(" km."));
+            ((TextView) view.findViewById(R.id.timeNode)).setText(String.valueOf(distance[0]/60).concat(" min."));
         }
 
         view.findViewById(R.id.showMapButton).setOnClickListener(new View.OnClickListener() {

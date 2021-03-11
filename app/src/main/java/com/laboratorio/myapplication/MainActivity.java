@@ -580,7 +580,7 @@ public class MainActivity extends AppCompatActivity {
         this.invisibleTotal();
     }
 
-    public void showLastStep(Node node) {
+    public void showLastStep(Node node, double[] distance) {
 
         if (loggedUser == null) {
             changeFragmentToLogin();
@@ -608,6 +608,7 @@ public class MainActivity extends AppCompatActivity {
                     pf.node = node;
                     pf.total = getTotal();
                     pf.general = response.body();
+                    pf.distance = distance;
                     ft.replace(R.id.placeholder, pf);
                     ft.commit();
                 }
@@ -905,7 +906,6 @@ public class MainActivity extends AppCompatActivity {
                     invisibleTotal();
                     ft.commit();
                     nDialog.hide();
-                    //TODO: ver como devolver los nodos en forma de lista
                 }
                 nDialog.hide();
             }

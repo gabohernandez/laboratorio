@@ -104,7 +104,7 @@
         android:layout_width="401dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Mostrar Nodos en el Mapa"
         app:layout_constraintBottom_toTopOf="@+id/selectedNodeLabel"
@@ -118,20 +118,65 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Direccion del Nodo Seleccionado:"
-        app:layout_constraintBottom_toTopOf="@+id/paymentLabel"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/distanceNodeLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showMapButton" />
 
     <TextView
         android:id="@+id/selectedNode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Aca va la dire"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toEndOf="@+id/selectedNodeLabel"
         app:layout_constraintTop_toBottomOf="@+id/showMapButton" />
+
+    <TextView
+        android:id="@+id/distanceNodeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Distancia al Nodo:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectedNodeLabel" />
+
+    <TextView
+        android:id="@+id/timeNodoLabel"
+        android:layout_width="113dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Tiempo al Nodo:"
+        app:layout_constraintBottom_toTopOf="@+id/paymentLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanceNodeLabel" />
+
+    <TextView
+        android:id="@+id/distanceNode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.017"
+        app:layout_constraintStart_toEndOf="@+id/distanceNodeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/selectedNode" />
+
+    <TextView
+        android:id="@+id/timeNode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toEndOf="@+id/timeNodoLabel"
+        app:layout_constraintTop_toBottomOf="@+id/distanceNode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
